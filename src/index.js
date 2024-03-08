@@ -13,6 +13,7 @@ app.use("/user",userRouter);
 
 app.use('/api/auth', require('./routes/authenticationRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
+app.use('/api/vehicle', require('./routes/vehicleRouter'));
 
 const initialize = async () => {
     try {
