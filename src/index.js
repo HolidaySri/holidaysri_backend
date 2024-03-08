@@ -13,7 +13,24 @@ app.use("/user",userRouter);
 
 app.use('/api/auth', require('./routes/authenticationRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
-app.use('/api/vehicle', require('./routes/vehicleRouter'));
+//app.use('/api/vehicle', require('./routes/vehicleRouter'));
+
+//product router
+const productRouter = require("./routes/productRoutes.js");
+app.use("/product", productRouter);
+
+//event router
+const eventRouter = require("./routes/eventRoutes.js");
+app.use("/event", eventRouter);
+
+//location router
+const locationRouter = require("./routes/locationRoutes.js");
+app.use("/location", locationRouter);
+
+//vehicle router
+const vehicleRouter = require("./routes/vehicleRouter.js");
+app.use("/vehicle", vehicleRouter);
+
 
 const initialize = async () => {
     try {
