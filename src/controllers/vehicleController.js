@@ -1,4 +1,4 @@
-const vehicleDetails = require("./models/Vehicle");
+const vehicleDetails = require("../models/Vehicle");
 
 //add new Vehicle for system
 exports.addNewVehicle= async (req, res) => {
@@ -98,7 +98,7 @@ exports.deleteVehicle = async (req, res) => {
   }
 
 //view 
-exports.viewVehicles= async (req, res) => { 
+exports.viewVehicle= async (req, res) => { 
  
     //calling  model
     vehicleDetails.find().then((vehicles) => {
