@@ -31,6 +31,10 @@ app.use("/location", locationRouter);
 const vehicleRouter = require("./routes/vehicleRouter.js");
 app.use("/vehicle", vehicleRouter);
 
+//promo code router
+const promoCodeRouter = require("./routes/promoCodeRouter.js");
+app.use("/promo", promoCodeRouter);
+
 
 const initialize = async () => {
     try {
