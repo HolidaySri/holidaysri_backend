@@ -14,7 +14,8 @@ const locationSchema = new Schema({
     distanceFromColombo: {
         type: String,
     },
-    locationImages: {
+    
+    images: {
         type: [String], // Array of strings to store image URLs
         validate: {
             validator: function (v) {

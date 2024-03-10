@@ -6,6 +6,8 @@ require("dotenv").config();
 const userRouter = require("./routes/User-routes");
 
 const app = express();
+// Enable all CORS requests
+app.use(cors());
 
 app.use(express.json());
 
