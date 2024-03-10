@@ -1,7 +1,8 @@
-const promoCodeDetails = require("../models/promo_code");
+const PromoCode = require("../models/promo_code");
+const Earning = require("../models/earnings")
+const Order = require("../models/Order")
 
-
-
+//promo code 
 exports.generatePromoCode = async (req, res) => {
     try {
       const { discountPercentage } = req.body;
@@ -82,20 +83,20 @@ exports.saveEarnings = async (req, res) => {
     }
   }
 
-exports.createAdvertisement = async (req, res) => {
-    try {
-      const { name, variety, amount, picture, information } = req.body;
+// exports.createAdvertisement = async (req, res) => {
+//     try {
+//       const { name, variety, amount, picture, information } = req.body;
   
-      // Validate the request data as needed
+//       // Validate the request data as needed
   
-      const advertisement = new Advertisement({ name, variety, amount, picture, information });
-      await advertisement.save();
+//       const advertisement = new Advertisement({ name, variety, amount, picture, information });
+//       await advertisement.save();
   
-      res.status(201).send(advertisement);
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
-  }
+//       res.status(201).send(advertisement);
+//     } catch (error) {
+//       res.status(500).send(error.message);
+//     }
+//   }
 
 exports.createOrder = async (req, res) => {
     try {

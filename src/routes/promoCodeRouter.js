@@ -1,6 +1,6 @@
 const express = require('express');
 
-const {generatePromoCode,applyPromoCode,saveEarnings,createAdvertisement,createOrder,getOrders} = require ('../controllers/promoCodeController')
+const {generatePromoCode,applyPromoCode,saveEarnings,createOrder,getOrders} = require ('../controllers/promoCodeController')
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.post("/apply-promo-code", applyPromoCode);
 router.post("/save-earnings", saveEarnings);
 
 //create advertisement
-router.post("/create-advertisement", createAdvertisement);
+// router.post("/create-advertisement", createAdvertisement);
 
 //create order
 router.post("/create-order", createOrder);
