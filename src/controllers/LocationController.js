@@ -3,7 +3,7 @@ const location = require("../models/Location");
 exports.addNewLocation= async (req, res) => {
  
     //constant variables for the attributes
-    const {locationName,district, province,distanceFromColombo,locationImages,details} = req.body;
+    const {locationName,district, province,distanceFromColombo,images,details} = req.body;
   
   
     location.findOne({locationName: locationName})
@@ -17,7 +17,7 @@ exports.addNewLocation= async (req, res) => {
             district,
             province,
             distanceFromColombo,
-            locationImages,
+            images,
             details
         })
     
@@ -48,9 +48,9 @@ exports.addNewLocation= async (req, res) => {
     exports.updateLocation= async (req, res) => { 
     //fetch id from url
     let locationid = req.params.id;
-    const {locationName,district, province,distanceFromColombo,locationImages,details} = req.body;
+    const {locationName,district, province,distanceFromColombo,images,details} = req.body;
     const updateLocation = {
-        locationName,district, province,distanceFromColombo,locationImages,details
+        locationName,district, province,distanceFromColombo,images,details
     }
   
     const update = await location.findByIdAndUpdate(locationid, updateLocation).then(() => {

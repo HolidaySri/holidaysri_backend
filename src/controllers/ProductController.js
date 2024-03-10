@@ -3,19 +3,21 @@ const product = require("../models/Product");
 exports.addNewProduct= async (req, res) => {
  
     //constant variables for the attributes
-    const {productName,location, description} = req.body;
+    const {productName,category,location,description,price,images,contactNumber} = req.body;
   
   
     product.findOne({productName: productName})
       .then((savedProduct) => {
-          if(savedProduct) {
-              return res.status(422).json({error:"Product Name already exists "})
-          }
+         
   
           const newProduct = new product({
             productName,
+            category,
             location,
-            description
+            description,
+            price,
+            images,
+            contactNumber
         })
     
         newProduct.save().then(() => {
@@ -45,9 +47,9 @@ exports.addNewProduct= async (req, res) => {
     exports.updateProduct= async (req, res) => { 
     //fetch id from url
     let productid = req.params.id;
-    const {productName, location,description} = req.body;
+    const {productName,category,location,description,price,images,contactNumber} = req.body;
     const updateProduct = {
-        productName, location,description
+        productName,category,location,description,price,images,contactNumber
     }
   
     const update = await product.findByIdAndUpdate(productid, updateProduct).then(() => {

@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
 
+   
     productName: {
        type: String,
     },
@@ -23,11 +24,7 @@ const productSchema = new Schema({
        type: String
     },
 
-    location: {
-       type: String
-    },
-
-    image: {
+    images: {
       type: String
     },
 

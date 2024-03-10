@@ -10,7 +10,7 @@ const VehicleSchema = new Schema(
       nic: String,
       gender: String, 
       description: String,
-      imgUrl: String,
+      images: String,
       promoCode: String
     },
   );
