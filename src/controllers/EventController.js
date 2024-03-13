@@ -3,7 +3,7 @@ const event = require("../models/Event");
 exports.addNewEvent= async (req, res) => {
  
     //constant variables for the attributes
-    const {eventName,location, description} = req.body;
+    const {eventName,eventLocation, description,images} = req.body;
   
   
     event.findOne({eventName: eventName})
@@ -14,8 +14,9 @@ exports.addNewEvent= async (req, res) => {
   
           const newEvent = new event({
             eventName,
-            location,
-            description
+            eventLocation,
+            description,
+            images
         })
     
         newEvent.save().then(() => {
@@ -45,9 +46,9 @@ exports.addNewEvent= async (req, res) => {
     exports.updateEvent= async (req, res) => { 
     //fetch id from url
     let eventid = req.params.id;
-    const {eventName, location,description} = req.body;
+    const {eventName, eventLocation,description,images} = req.body;
     const updateEvent = {
-        eventName, location,description
+        eventName, eventLocation,description,images
     }
   
     const update = await event.findByIdAndUpdate(eventid, updateEvent).then(() => {

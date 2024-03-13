@@ -13,6 +13,7 @@ exports.addNewVehicle= async (req, res) => {
       expDate,
       description,
       images,
+      location,
       promoCode
      } = req.body;
   
@@ -33,6 +34,7 @@ exports.addNewVehicle= async (req, res) => {
             expDate,
             description,
             images,
+            location,
             promoCode
            
         })
@@ -73,6 +75,7 @@ exports.deleteVehicle = async (req, res) => {
             expDate,
             description,
             images,
+            location,
             promoCode
            } = req.body;
   
@@ -86,6 +89,7 @@ exports.deleteVehicle = async (req, res) => {
       expDate,
       description,
       images,
+      location,
       promoCode }
   
   

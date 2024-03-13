@@ -6,12 +6,16 @@ const eventSchema = new Schema({
     eventName: {
         type: String,
     },
-    location: {
+    eventLocation: {
         type: String,
     },
     description: {
         type: String,
-    }
+    },
+    images: {
+        type: String,
+    },
+
    
 }, { timestamps: true }); // Adding { timestamps: true } here
 
