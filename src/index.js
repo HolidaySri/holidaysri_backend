@@ -37,6 +37,13 @@ app.use("/vehicle", vehicleRouter);
 const promoCodeRouter = require("./routes/promoCodeRouter.js");
 app.use("/promo", promoCodeRouter);
 
+//Package  router
+const packageRouter = require("./routes/packageRoutes.js");
+app.use("/package", packageRouter);
+
+//Hotel router
+const hotelRouter = require("./routes/hotelRoutes.js");
+app.use("/hotel", hotelRouter);
 
 const initialize = async () => {
     try {

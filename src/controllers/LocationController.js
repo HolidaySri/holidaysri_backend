@@ -8,9 +8,7 @@ exports.addNewLocation= async (req, res) => {
   
     location.findOne({locationName: locationName})
       .then((savedLocation) => {
-          if(savedLocation) {
-              return res.status(422).json({error:"Location Name already exists "})
-          }
+         
   
           const newLocation = new location({
             locationName,
