@@ -82,4 +82,24 @@ exports.addNewEvent= async (req, res) => {
   }
 
 
+  //view events by loaction
+  exports.viewEventsByLocation = async (req, res) => { 
+  // Get the location from the request query
+  const { location } = req.query;
+
+  // If location is provided, filter events by location
+  const filter = location ? { eventLocation: location } : {};
+
+  // Find events based on the filter
+  event.find(filter)
+      .then((events) => {
+          res.json(events);
+      })
+      .catch((err) => {
+          res.status(500).json({ error: "Error fetching events", message: err.message });
+      });
+};
+
+
+
 
