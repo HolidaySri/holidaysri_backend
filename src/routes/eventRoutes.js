@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const {addNewEvent,viewEvents,viewOneEvent, updateEvent,deleteEvent} = require ('../controllers/EventController.js')
+const {addNewEvent,viewEvents,viewOneEvent, updateEvent,deleteEvent,viewEventsByLocation} = require ('../controllers/EventController.js')
 
 //add new Event 
 router.post("/add", addNewEvent);
@@ -16,6 +16,11 @@ router.get("/", viewEvents);
 
 //view one Event
 router.get("/get/:id", viewOneEvent);
+
+//view all Events
+router.get("/getEventsByLocation", viewEventsByLocation);
+
+
 
 
 
