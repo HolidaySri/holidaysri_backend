@@ -17,10 +17,8 @@ router.get("/", viewEvents);
 //view one Event
 router.get("/get/:id", viewOneEvent);
 
-//view all Events
-router.get("/getEventsByLocation", viewEventsByLocation);
-
-
+//view all Events by location
+router.get("/getEventsByLocation/:id", viewEventsByLocation);
 
 
 
