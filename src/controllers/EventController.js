@@ -1,4 +1,5 @@
 const event = require("../models/Event");
+const Locations = require("../models/Location");
 //add new Event for system
 exports.addNewEvent= async (req, res) => {
  
@@ -82,24 +83,21 @@ exports.addNewEvent= async (req, res) => {
   }
 
 
-  //view events by loaction
-  exports.viewEventsByLocation = async (req, res) => { 
-  // Get the location from the request query
-  const { location } = req.query;
+// View events by location
+exports.viewEventsByLocation = async (req, res) => { 
+  try {
+    const { id } = req.params;
+    // Find the location based on the provided ID
+    const location = await Locations.findById(id);
 
-  // If location is provided, filter events by location
-  const filter = location ? { eventLocation: location } : {};
+    if (!location) {
+      return res.status(404).json({ error: "Location not found" });
+    }
 
-  // Find events based on the filter
-  event.find(filter)
-      .then((events) => {
-          res.json(events);
-      })
-      .catch((err) => {
-          res.status(500).json({ error: "Error fetching events", message: err.message });
-      });
+    // Find events based on the location name
+    const events = await event.find({ eventLocation: location.locationName });
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching events", message: err.message });
+  }
 };
-
-
-
-

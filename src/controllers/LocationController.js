@@ -1,4 +1,5 @@
 const location = require("../models/Location");
+
 //add new Location for system
 exports.addNewLocation= async (req, res) => {
  
@@ -70,7 +71,7 @@ exports.addNewLocation= async (req, res) => {
     })
     }
 
-   //view one
+ /*  //view one
    exports.viewOneLocation = async (req, res) => {
     
     let locationid = req.params.id;
@@ -81,6 +82,20 @@ exports.addNewLocation= async (req, res) => {
          res.status(500).send({status:"Error with get " , error: err.message})
     })
   }
+*/
 
 
-
+  exports.viewOneLocation = async (req, res) => {
+    try {
+      const locationId = req.params.id;
+      const foundLocation = await location.findById(locationId); // Assuming Location is your model
+      if (!foundLocation) {
+        return res.status(404).json({ status: "Location not found" });
+      }
+      res.status(200).json({ status: "Location fetched", location: foundLocation });
+    } catch (error) {
+      console.error("Error fetching location:", error);
+      res.status(500).json({ status: "Error with get", error: error.message });
+    }
+  };
+  
