@@ -45,6 +45,9 @@ app.use("/package", packageRouter);
 const hotelRouter = require("./routes/hotelRoutes.js");
 app.use("/hotel", hotelRouter);
 
+const rateRouter = require("./routes/rateRoutes.js");
+app.use("/rate", rateRouter);
+
 const initialize = async () => {
     try {
       await mongoose.connect(process.env.MONGO_CONNECT_URL);
