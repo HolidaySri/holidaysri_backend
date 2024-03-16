@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Admin = require("../models/Admin");
 // const Staff = require("../models/Staff");
-const Suser = require("../models/User");
+const User = require("../models/User");
 
 exports.protectedAdmin = async (req, res, next) => {
     let token;
@@ -25,7 +25,7 @@ exports.protectedUser = async (req, res, next) => {
     token = tokenValidate(req, res);
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await Suser.findById(decoded.id);
+      const user = await User.findById(decoded.id);
       if (!user) {
         noUserResponse(res);
       } else {
@@ -40,16 +40,16 @@ exports.protectedUser = async (req, res, next) => {
   const tokenValidate = (reqObj, res) => {
     let token;
     if (
-      reqObj.headers.authorization &&
-      reqObj.headers.authorization.startsWith("Bearer")
+        reqObj.headers.authorization &&
+        reqObj.headers.authorization.startsWith("Bearer")
     ) {
-      token = reqObj.headers.authorization.split(" ")[1];
+        token = reqObj.headers.authorization.split(" ")[1];
     }
     if (!token) {
-      res.status(401).json({ success: false, desc: "Not Authorized to Access" });
+        res.status(401).json({ success: false, desc: "Not Authorized to Access" });
     }
     return token;
-  };
+};
   
   const noUserResponse = (res) => {
     res.status(404).json({ success: false, desc: "No user found with this ID" });

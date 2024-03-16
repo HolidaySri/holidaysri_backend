@@ -1,4 +1,4 @@
-const Suser = require("../models/User");
+const User = require("../models/User");
 
 const mongoose = require("mongoose");
 
@@ -36,7 +36,7 @@ exports.updateUserProfile = async (req,res) => {
             password
         };
 
-        const updatedUser = await Suser.findByIdAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
             req.user.id,
             newData,
             {
@@ -79,7 +79,7 @@ exports.deleteUserProfile = async(req,res) =>{
     } catch (error) {
         res.status(500).json({
             success: false,
-            desc: "Error in delete Suser Profile controller-" + error,
+            desc: "Error in delete User Profile controller-" + error,
         });
     }
 
@@ -89,8 +89,8 @@ exports.deleteUserProfile = async(req,res) =>{
 
 exports.allProfiles =  (req,res) =>{
     
-    Suser.find().then((Susers) => {
-        res.json(Susers)
+    User.find().then((Users) => {
+        res.json(Users)
 
     }).catch((err) => {
       

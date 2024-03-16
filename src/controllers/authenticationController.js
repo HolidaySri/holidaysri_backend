@@ -1,11 +1,11 @@
 const Admin = require("../models/Admin");
-const Suser = require("../models/User");
+const User = require("../models/User");
 
 exports.registerUser = async (req, res, next) => {
   const { userID, name, email, contactNumber, password } = req.body;
 
   try {
-    const user = await Suser.create({
+    const user = await User.create({
       userID,
       name,
       email,
@@ -41,35 +41,35 @@ exports.registerAdmin = async (req, res, next) => {
 };
 
 exports.userLogin = async (req, res, next) => {
-  const { email, password, role } = req.body;
+  const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
-      desc: "provide email, password",
+      desc: "Provide email and password",
     });
   }
 
   try {
-    const user = await user.findOne({ email: email }).select("+password");
+    const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
-        error: "invalid credentials",
+        error: "Invalid credentials",
       });
     }
 
     const isMatch = await user.matchPasswords(password);
 
     if (!isMatch) {
-      res.status(401).json({
+      return res.status(401).json({
         success: false,
-        error: "Invalid credentials - Please check again",
+        error: "Invalid credentials, please try again",
       });
-    } else {
-      sendToken(user, 200, res);
     }
+
+    sendToken(user, 200, res);
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -77,6 +77,7 @@ exports.userLogin = async (req, res, next) => {
     });
   }
 };
+
 
 exports.adminLogin = async (req, res, next) => {
   const { email, password } = req.body;
