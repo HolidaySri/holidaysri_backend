@@ -31,7 +31,7 @@ const PartnerSchema = new Schema({
     type: String,
     require: true
  },
- description: {
+ location: {
     type: String,
     require: true
  },

@@ -14,6 +14,8 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/authenticationRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/guide', require('./routes/guideRoutes'));
+app.use('/api/partner', require('./routes/partnerRoutes'));
 //app.use('/api/vehicle', require('./routes/vehicleRouter'));
 
 //product router
