@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../models/Admin");
 // const Staff = require("../models/Staff");
 const User = require("../models/User");
+const Guide = require("../models/Guide");
+const Partner = require("../models/Partner");
 
 exports.protectedAdmin = async (req, res, next) => {
     let token;
@@ -30,6 +32,40 @@ exports.protectedUser = async (req, res, next) => {
         noUserResponse(res);
       } else {
         req.user = user;
+        next();
+      }
+    } catch (err) {
+      invalidUserResponse(res, err);
+    }
+  };
+
+  exports.protectedGuide = async (req, res, next) => {
+    let token;
+    token = tokenValidate(req, res);
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const guide = await Guide.findById(decoded.id);
+      if (!guide) {
+        noUserResponse(res);
+      } else {
+        req.guide = guide;
+        next();
+      }
+    } catch (err) {
+      invalidUserResponse(res, err);
+    }
+  };
+
+  exports.protectedPartner = async (req, res, next) => {
+    let token;
+    token = tokenValidate(req, res);
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const partner = await Partner.findById(decoded.id);
+      if (!partner) {
+        noUserResponse(res);
+      } else {
+        req.partner = partner;
         next();
       }
     } catch (err) {
