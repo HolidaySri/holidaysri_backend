@@ -3,7 +3,7 @@ const cors = require("cors");
 const  mongoose = require('mongoose');
 require("dotenv").config();
 
-const userRouter = require("./routes/User-routes");
+// const userRouter = require("./routes/User-routes");
 
 const app = express();
 // Enable all CORS requests
@@ -11,10 +11,9 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use("/user",userRouter);
-
 app.use('/api/auth', require('./routes/authenticationRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
+app.use('/api/admin', require('./routes/adminRoutes'));
 //app.use('/api/vehicle', require('./routes/vehicleRouter'));
 
 //product router
