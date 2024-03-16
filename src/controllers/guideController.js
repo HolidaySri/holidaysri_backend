@@ -26,7 +26,7 @@ exports.getGuideProfile = async (req,res) =>{
 
 //update cutomer profile
 exports.updateGuideProfile = async (req,res) => {
-    const {Name,Email,contactNumber,password, description} = req.body;
+    const {Name,Email,contactNumber,password, location} = req.body;
 
     try{
         const newData = {
@@ -34,7 +34,7 @@ exports.updateGuideProfile = async (req,res) => {
             Email,
             contactNumber,
             password,
-            description
+            location
         };
 
         const updatedGuide = await Guide.findByIdAndUpdate(

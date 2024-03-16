@@ -18,8 +18,8 @@ const {
 //suser profile routes
 
 router.route("/partnerprofile").get(protectedPartner,getPartnerProfile);
-router.route("/updatepartnerProfile").put(protectedGuide,updatePartnerProfile);
-router.route("/deletepartnerProfile").delete(protectedGuide,deletePartnerProfile);
+router.route("/updatepartnerProfile").put(protectedPartner,updatePartnerProfile);
+router.route("/deletepartnerProfile").delete(protectedPartner,deletePartnerProfile);
 router.route("/allPartnerProfiles").get(allPartnerProfiles);
 
 module.exports = router; 
