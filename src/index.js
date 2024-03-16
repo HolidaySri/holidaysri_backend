@@ -45,8 +45,13 @@ app.use("/package", packageRouter);
 const hotelRouter = require("./routes/hotelRoutes.js");
 app.use("/hotel", hotelRouter);
 
+//Rates Router
 const rateRouter = require("./routes/rateRoutes.js");
 app.use("/rate", rateRouter);
+
+//RealTime Router
+const realTimeRouter = require("./routes/realTimeRoutes.js");
+app.use("/realTime", realTimeRouter);
 
 const initialize = async () => {
     try {
