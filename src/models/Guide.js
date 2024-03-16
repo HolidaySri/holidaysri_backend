@@ -16,6 +16,7 @@ const GuideSchema = new Schema({
   },
   NICNo :{
     type: String,
+    unique: true
 },
    Email :{
          type: String,

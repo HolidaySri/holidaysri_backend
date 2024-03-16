@@ -1,7 +1,7 @@
 const Admin = require("../models/Admin");
 const User = require("../models/User");
 const Guide = require("../models/Guide");
-const Partner = require("../models/Partner")
+const Partner = require("../models/Partner");
 
 exports.registerUser = async (req, res, next) => {
   const { userID, name, email, contactNumber, password } = req.body;
@@ -32,8 +32,7 @@ exports.registerAdmin = async (req, res, next) => {
       phoneno,
       password,
     });
-     const token = await Admin.getSignedToken();
-    sendToken(admin, 201, res);
+    sendToken2(admin, 201, res);
   } catch (error) {
     res.status(500).json({
       error,
@@ -43,18 +42,19 @@ exports.registerAdmin = async (req, res, next) => {
 };
 
 exports.registerGuide = async (req, res, next) => {
-  const { Name, GuideID, Email, contactNumber, password, location } = req.body;
+  const { Name, GuideID, NICNo, Email, contactNumber, password, location } = req.body;
 
   try {
-    const Guide = await Guide.create({
+    const guide = await Guide.create({
       Name,
       GuideID,
+      NICNo,
       Email,
       contactNumber,
       password,
       location
     });
-    sendToken(Guide, 201, res);
+    sendToken1(guide, 201, res);
   } catch (error) {
     res.status(500).json({
       error,
@@ -64,18 +64,19 @@ exports.registerGuide = async (req, res, next) => {
 };
 
 exports.registerPartner = async (req, res, next) => {
-  const { Name, PartnerID, Email, contactNumber, password, location } = req.body;
+  const { Name, PartnerID, NICNo, Email, contactNumber, password, location } = req.body;
 
   try {
-    const Partner = await Partner.create({
+    const partner = await Partner.create({
       Name,
       PartnerID,
+      NICNo,
       Email,
       contactNumber,
       password,
       location
     });
-    sendToken(Partner, 201, res);
+    sendToken3(partner, 201, res);
   } catch (error) {
     res.status(500).json({
       error,
@@ -151,7 +152,7 @@ exports.adminLogin = async (req, res, next) => {
         error: "Invalid credentials - Please check again",
       });
     } else {
-      sendToken(admin, 200, res);
+      sendToken2(admin, 200, res);
     }
   } catch (error) {
     res.status(500).json({
@@ -162,9 +163,9 @@ exports.adminLogin = async (req, res, next) => {
 };
 
 exports.guideLogin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { Email, password } = req.body;
 
-  if (!email || !password) {
+  if (!Email || !password) {
     return res.status(400).json({
       success: false,
       desc: "Provide email and password",
@@ -172,7 +173,7 @@ exports.guideLogin = async (req, res, next) => {
   }
 
   try {
-    const guide = await Guide.findOne({ email }).select("+password");
+    const guide = await Guide.findOne({ Email }).select("+password");
 
     if (!guide) {
       return res.status(404).json({
@@ -190,7 +191,7 @@ exports.guideLogin = async (req, res, next) => {
       });
     }
 
-    sendToken(guide, 200, res);
+    sendToken1(guide, 200, res);
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -200,9 +201,9 @@ exports.guideLogin = async (req, res, next) => {
 };
 
 exports.partnerLogin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { Email, password } = req.body;
 
-  if (!email || !password) {
+  if (!Email || !password) {
     return res.status(400).json({
       success: false,
       desc: "Provide email and password",
@@ -210,7 +211,7 @@ exports.partnerLogin = async (req, res, next) => {
   }
 
   try {
-    const partner = await Partner.findOne({ email }).select("+password");
+    const partner = await Partner.findOne({ Email }).select("+password");
 
     if (!partner) {
       return res.status(404).json({
@@ -228,7 +229,7 @@ exports.partnerLogin = async (req, res, next) => {
       });
     }
 
-    sendToken(partner, 200, res);
+    sendToken3(partner, 200, res);
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -240,4 +241,19 @@ exports.partnerLogin = async (req, res, next) => {
 const sendToken = (user, statusCode, res) => {
   const token = user.getSignedToken();
   res.status(statusCode).json({ sucess: true, token, user });
+};
+
+const sendToken1 = (guide, statusCode, res) => {
+  const token = guide.getSignedToken();
+  res.status(statusCode).json({ sucess: true, token, guide });
+};
+
+const sendToken2 = (admin, statusCode, res) => {
+  const token = admin.getSignedToken();
+  res.status(statusCode).json({ sucess: true, token, admin });
+};
+
+const sendToken3 = (partner, statusCode, res) => {
+  const token = partner.getSignedToken();
+  res.status(statusCode).json({ sucess: true, token, partner });
 };
