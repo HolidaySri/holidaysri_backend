@@ -121,7 +121,7 @@ exports.viewOneRealTimeByName = async (req, res) => {
     const personName = req.params.vehicleOwnerName; // Assuming the name is passed as a parameter
 
     try {
-        const realTime = await realTimeDetails.find({ name: personName });
+        const realTime = await realTimeDetails.findOne({ name: personName });
         if (realTime) {
             res.status(200).json({ status: "success", realTime });
         } else {
