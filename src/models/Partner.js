@@ -6,6 +6,11 @@ const Schema = mongoose.Schema;
 
 const PartnerSchema = new Schema({
 
+  role: {
+    type: String,
+    default:"partner",
+    
+  },
   Name: {
     type: String,
   },

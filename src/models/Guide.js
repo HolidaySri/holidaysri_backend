@@ -6,6 +6,11 @@ const Schema = mongoose.Schema;
 
 const GuideSchema = new Schema({
 
+  role: {
+    type: String,
+    default:"guide",
+    
+  },
   Name: {
     type: String,
   },
