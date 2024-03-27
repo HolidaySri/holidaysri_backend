@@ -11,28 +11,24 @@ const UserSchema = new Schema({
     default:"user",
 
   },
-  userID : {
-   type : String,
-   unique: true,
-   require: true
-  },
+ 
   name :{
     type: String,
     require: true
 },
 
-   email :{
-         type: String,
-         unique: true,
-         require: true
+  email :{
+    type: String,
+    unique: true,
+    require: true
    },
    
-   contactNumber : {
+  contactNumber : {
     type: Number,
     require: true
 },
 
-   password: {
+  password: {
     type: String,
     require: true
  },

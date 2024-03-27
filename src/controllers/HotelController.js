@@ -3,7 +3,8 @@ const hotel = require("../models/Hotel");
 exports.addNewHotel= async (req, res) => {
  
     //constant variables for the attributes
-    const {hotelName,category,location,description,price,images,distance} = req.body;
+    const {hotelName,category,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber
+   } = req.body;
   
   
     hotel.findOne({hotelName: hotelName})
@@ -11,7 +12,8 @@ exports.addNewHotel= async (req, res) => {
          
   
           const newHotel = new hotel({
-            hotelName,category,location,description,price,images,distance
+            hotelName,category,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber
+   
         })
     
         newHotel.save().then(() => {
@@ -41,9 +43,11 @@ exports.addNewHotel= async (req, res) => {
     exports.updateHotel= async (req, res) => { 
     //fetch id from url
     let hotelid = req.params.id;
-    const {hotelName,category,location,description,price,images,distance} = req.body;
+    const {hotelName,category,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber
+   } = req.body;
     const updateHotel = {
-        hotelName,category,location,description,price,images,distance
+        hotelName,category,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber
+   
     }
   
     const update = await hotel.findByIdAndUpdate(hotelid, updateHotel).then(() => {

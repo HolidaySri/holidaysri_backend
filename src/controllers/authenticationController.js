@@ -4,11 +4,10 @@ const Guide = require("../models/Guide");
 const Partner = require("../models/Partner");
 
 exports.registerUser = async (req, res, next) => {
-  const { userID, name, email, contactNumber, password } = req.body;
+  const {name, email, contactNumber, password } = req.body;
 
   try {
     const user = await User.create({
-      userID,
       name,
       email,
       contactNumber,
@@ -24,12 +23,12 @@ exports.registerUser = async (req, res, next) => {
 };
 
 exports.registerAdmin = async (req, res, next) => {
-  const { email, phoneno, password } = req.body;
+  const { email, contactNumber, password } = req.body;
 
   try {
     const admin = await Admin.create({
       email,
-      phoneno,
+      contactNumber,
       password,
     });
     sendToken2(admin, 201, res);
@@ -42,14 +41,13 @@ exports.registerAdmin = async (req, res, next) => {
 };
 
 exports.registerGuide = async (req, res, next) => {
-  const { Name, GuideID, NICNo, Email, contactNumber, password, location } = req.body;
+  const { name, nic, email, contactNumber, password, location } = req.body;
 
   try {
     const guide = await Guide.create({
-      Name,
-      GuideID,
-      NICNo,
-      Email,
+      name,
+      nic,
+      email,
       contactNumber,
       password,
       location
@@ -64,14 +62,13 @@ exports.registerGuide = async (req, res, next) => {
 };
 
 exports.registerPartner = async (req, res, next) => {
-  const { Name, PartnerID, NICNo, Email, contactNumber, password, location } = req.body;
+  const { name, nic, email, contactNumber, password, location } = req.body;
 
   try {
     const partner = await Partner.create({
-      Name,
-      PartnerID,
-      NICNo,
-      Email,
+      name,
+      nic,
+      email,
       contactNumber,
       password,
       location

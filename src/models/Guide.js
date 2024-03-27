@@ -11,32 +11,31 @@ const GuideSchema = new Schema({
     default:"guide",
     
   },
-  Name: {
+
+  name: {
     type: String,
   },
-  GuideID : {
-   type : String,
-   unique: true,
-   require: true
-  },
-  NICNo :{
+
+  nic :{
     type: String,
     unique: true
-},
-   Email :{
-         type: String,
-         unique: true,
+  },
+
+  email :{
+    type: String,
+    unique: true,
    },
    
-   contactNumber : {
+  contactNumber : {
     type: Number,
     require: true
 },
 
-   password: {
+  password: {
     type: String,
     require: true
  },
+
  location: {
     type: String,
     require: true
