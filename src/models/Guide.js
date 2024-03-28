@@ -5,47 +5,36 @@ const Schema = mongoose.Schema;
 
 
 const GuideSchema = new Schema({
-
   role: {
-    type: String,
-    default:"guide",
-    
+      type: String,
+      default: "guide",
   },
-
   name: {
-    type: String,
+      type: String,
   },
-
-  nic :{
-    type: String,
-    unique: true
+  nic: {
+      type: String,
+      unique: true,
   },
-
-  email :{
-    type: String,
-    unique: true,
-   },
-   
-  contactNumber : {
-    type: Number,
-    require: true
-},
-
+  email: {
+      type: String,
+      unique: true,
+  },
+  contactNumber: {
+      type: Number,
+      required: true
+  },
   password: {
-    type: String,
-    require: true
- },
-
- location: {
-    type: String,
-    require: true
- },
-
-  resetPasswordToken : String,
-  resetPasswordExpire : Date,
-
-  
-})
+      type: String,
+      required: true
+  },
+  location: {
+      type: String,
+      required: true
+  },
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
+});
 
 //pre save runs before save data on Mongodb
 GuideSchema.pre("save", async function (next) {

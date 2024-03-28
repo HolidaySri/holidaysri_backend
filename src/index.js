@@ -40,7 +40,7 @@ app.use("/promo", promoCodeRouter);
 
 //Package  router
 const packageRouter = require("./routes/packageRoutes.js");
-app.use("/package", packageRouter);
+app.use("/0", packageRouter);
 
 //Hotel router
 const hotelRouter = require("./routes/hotelRoutes.js");

@@ -4,10 +4,11 @@ const Guide = require("../models/Guide");
 const Partner = require("../models/Partner");
 
 exports.registerUser = async (req, res, next) => {
-  const {name, email, contactNumber, password } = req.body;
+  const { userID, name, email, contactNumber, password } = req.body;
 
   try {
     const user = await User.create({
+      userID,
       name,
       email,
       contactNumber,
@@ -23,12 +24,12 @@ exports.registerUser = async (req, res, next) => {
 };
 
 exports.registerAdmin = async (req, res, next) => {
-  const { email, contactNumber, password } = req.body;
+  const { email, phoneno, password } = req.body;
 
   try {
     const admin = await Admin.create({
       email,
-      contactNumber,
+      phoneno,
       password,
     });
     sendToken2(admin, 201, res);
@@ -41,10 +42,11 @@ exports.registerAdmin = async (req, res, next) => {
 };
 
 exports.registerGuide = async (req, res, next) => {
-  const { name, nic, email, contactNumber, password, location } = req.body;
+  const { role,name, nic, email, contactNumber, password, location } = req.body;
 
   try {
     const guide = await Guide.create({
+      role,
       name,
       nic,
       email,
@@ -62,13 +64,14 @@ exports.registerGuide = async (req, res, next) => {
 };
 
 exports.registerPartner = async (req, res, next) => {
-  const { name, nic, email, contactNumber, password, location } = req.body;
+  const { Name, PartnerID, NICNo, Email, contactNumber, password, location } = req.body;
 
   try {
     const partner = await Partner.create({
-      name,
-      nic,
-      email,
+      Name,
+      PartnerID,
+      NICNo,
+      Email,
       contactNumber,
       password,
       location
@@ -160,9 +163,9 @@ exports.adminLogin = async (req, res, next) => {
 };
 
 exports.guideLogin = async (req, res, next) => {
-  const { Email, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!Email || !password) {
+  if (!email || !password) {
     return res.status(400).json({
       success: false,
       desc: "Provide email and password",
@@ -170,7 +173,7 @@ exports.guideLogin = async (req, res, next) => {
   }
 
   try {
-    const guide = await Guide.findOne({ Email }).select("+password");
+    const guide = await Guide.findOne({ email }).select("+password");
 
     if (!guide) {
       return res.status(404).json({
