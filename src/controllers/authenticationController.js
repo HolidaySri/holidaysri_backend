@@ -4,11 +4,10 @@ const Guide = require("../models/Guide");
 const Partner = require("../models/Partner");
 
 exports.registerUser = async (req, res, next) => {
-  const { userID, name, email, contactNumber, password } = req.body;
+  const {  name, email, contactNumber, password } = req.body;
 
   try {
     const user = await User.create({
-      userID,
       name,
       email,
       contactNumber,
@@ -64,14 +63,14 @@ exports.registerGuide = async (req, res, next) => {
 };
 
 exports.registerPartner = async (req, res, next) => {
-  const { Name, PartnerID, NICNo, Email, contactNumber, password, location } = req.body;
+  const { role, name, nic, email, contactNumber, password, location } = req.body;
 
   try {
     const partner = await Partner.create({
-      Name,
-      PartnerID,
-      NICNo,
-      Email,
+      role,
+      name,
+      nic,
+      email,
       contactNumber,
       password,
       location
@@ -128,9 +127,9 @@ exports.adminLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
-      desc: "provide email, password and role ",
+      desc: "Provide email, password, and role",
     });
   }
 
@@ -138,26 +137,29 @@ exports.adminLogin = async (req, res, next) => {
     const admin = await Admin.findOne({ email: email }).select("+password");
 
     if (!admin) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
-        error: "invalid credentials",
+        error: "Invalid credentials",
       });
     }
 
     const isMatch = await admin.matchPasswords(password);
 
     if (!isMatch) {
-      res.status(401).json({
+      return res.status(401).json({
         success: false,
         error: "Invalid credentials - Please check again",
       });
-    } else {
-      sendToken2(admin, 200, res);
     }
+
+    // If everything is successful, send the response with the token
+    sendToken2(admin, 200, res);
   } catch (error) {
+    // If an error occurs during the process, handle it properly
+    console.error("Error logging in admin:", error);
     res.status(500).json({
       success: false,
-      error: error.message,
+      error: "An unexpected error occurred",
     });
   }
 };
@@ -201,9 +203,9 @@ exports.guideLogin = async (req, res, next) => {
 };
 
 exports.partnerLogin = async (req, res, next) => {
-  const { Email, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!Email || !password) {
+  if (!email || !password) {
     return res.status(400).json({
       success: false,
       desc: "Provide email and password",
@@ -211,7 +213,7 @@ exports.partnerLogin = async (req, res, next) => {
   }
 
   try {
-    const partner = await Partner.findOne({ Email }).select("+password");
+    const partner = await Partner.findOne({ email }).select("+password");
 
     if (!partner) {
       return res.status(404).json({
