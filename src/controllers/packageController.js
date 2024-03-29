@@ -1,4 +1,4 @@
-const package = require("../models/Package");
+const packages = require("../models/Package");
 //add new Package for system
 exports.addNewPackage= async (req, res) => {
  
@@ -6,7 +6,7 @@ exports.addNewPackage= async (req, res) => {
     const {packageName,category,location,description,price,images,activities} = req.body;
   
   
-    package.findOne({packageName: packageName})
+    packages.findOne({packageName: packageName})
       .then((savedPackage) => {
          
   
@@ -30,7 +30,7 @@ exports.addNewPackage= async (req, res) => {
     exports.deletePackage = async (req, res) => {
     let packageId = req.params.id;
     
-    await package.findByIdAndDelete(packageId).then(() => {
+    await packages.findByIdAndDelete(packageId).then(() => {
       res.status(200).json({ status: "Deleted Successfully" });
     }).catch((error) => {
       res.status(500).json({ status: "Error with Deleting", error: error.message });
@@ -46,7 +46,7 @@ exports.addNewPackage= async (req, res) => {
         packageName,category,location,description,price,images,activities
     }
   
-    const update = await package.findByIdAndUpdate(packageid, updatePackage).then(() => {
+    const update = await packages.findByIdAndUpdate(packageid, updatePackage).then(() => {
       res.status(200).send({status: "Package details successfully updated"})
     }).catch((err) => {
        
@@ -57,7 +57,7 @@ exports.addNewPackage= async (req, res) => {
     //view 
     exports.viewPackages= async (req, res) => { 
     //calling  model
-    package.find().then((package) => {
+    packages.find().then((package) => {
       res.json(package)
     }).catch((err) => {
 
@@ -68,7 +68,7 @@ exports.addNewPackage= async (req, res) => {
    exports.viewOnePackage = async (req, res) => {
     
     let packageid = req.params.id;
-    const package = await package.findById(packageid).then((package) => {
+    const package = await packages.findById(packageid).then((package) => {
         res.status(200).send({status: "  fetched", package})
     }).catch(() => {
         
