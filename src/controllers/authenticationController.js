@@ -113,7 +113,7 @@ exports.userLogin = async (req, res, next) => {
       });
     }
 
-    sendToken(user, 200, res);
+    sendToken(user, 200, res, email);
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -153,7 +153,7 @@ exports.adminLogin = async (req, res, next) => {
     }
 
     // If everything is successful, send the response with the token
-    sendToken2(admin, 200, res);
+    sendToken2(admin, 200, res, email);
   } catch (error) {
     // If an error occurs during the process, handle it properly
     console.error("Error logging in admin:", error);
@@ -193,7 +193,7 @@ exports.guideLogin = async (req, res, next) => {
       });
     }
 
-    sendToken1(guide, 200, res);
+    sendToken1(guide, 200, res, email); // Pass email to the sendToken1 function
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -231,7 +231,7 @@ exports.partnerLogin = async (req, res, next) => {
       });
     }
 
-    sendToken3(partner, 200, res);
+    sendToken3(partner, 200, res, email);
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -240,22 +240,22 @@ exports.partnerLogin = async (req, res, next) => {
   }
 };
 
-const sendToken = (user, statusCode, res) => {
+const sendToken = (user, statusCode, res, email) => {
   const token = user.getSignedToken();
-  res.status(statusCode).json({ sucess: true, token, user });
+  es.status(statusCode).json({ success: true, token, user, email });
 };
 
-const sendToken1 = (guide, statusCode, res) => {
+const sendToken1 = (guide, statusCode, res, email) => {
   const token = guide.getSignedToken();
-  res.status(statusCode).json({ sucess: true, token, guide });
+  res.status(statusCode).json({ success: true, token, guide, email }); // Include email in the response
 };
 
-const sendToken2 = (admin, statusCode, res) => {
+const sendToken2 = (admin, statusCode, res, email) => {
   const token = admin.getSignedToken();
-  res.status(statusCode).json({ sucess: true, token, admin });
+  res.status(statusCode).json({ sucess: true, token, admin, email });
 };
 
-const sendToken3 = (partner, statusCode, res) => {
+const sendToken3 = (partner, statusCode, res, email) => {
   const token = partner.getSignedToken();
-  res.status(statusCode).json({ sucess: true, token, partner });
+  res.status(statusCode).json({ sucess: true, token, partner, email });
 };
