@@ -28,10 +28,20 @@ const GuideSchema = new Schema({
       type: String,
       required: true
   },
+  
   location: {
       type: String,
       required: true
   },
+
+  certificateImage: {
+    type: String
+  },
+
+  experience:{
+    type: String
+  },
+
   resetPasswordToken: String,
   resetPasswordExpire: Date,
 });
