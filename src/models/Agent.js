@@ -4,50 +4,59 @@ const jwt = require("jsonwebtoken");
 const Schema = mongoose.Schema;
 
 
-const GuideSchema = new Schema({
-  role: {
-      type: String,
-      default: "guide",
-  },
-  name: {
-      type: String,
-  },
-  nic: {
-      type: String,
-      unique: true,
-  },
-  email: {
-      type: String,
-      unique: true,
-  },
-  contactNumber: {
-      type: Number,
-      required: true
-  },
-  password: {
-      type: String,
-      required: true
-  },
-  
-  location: {
-      type: String,
-      required: true
-  },
+const AgentSchema = new Schema({
 
-  certificateImage: {
-    type: String
-  },
+    role: {
+        type: String,
+        default: "agent",
+      },
+    
+    subrole: {
+        type: String,
+      },
+    
+    name: {
+        type: String,
+        
+      },
 
-  experience:{
-    type: String
-  },
+    nic: {
+        type: String, 
+      },
 
-  resetPasswordToken: String,
-  resetPasswordExpire: Date,
-});
+    passport:{
+        type: String, 
+    },
+    
+    email: {
+        type: String,
+      
+      },
+    
+   
+    contactNumber: {
+        type: Number,
+       
+      },
+    
+    password: {
+        type: String,
+       
+      },
 
+      
+    promoCode: {
+        type: String,
+      
+      },
+    
+      resetPasswordToken : String,
+      resetPasswordExpire : Date,
+    
+      
+    })
 //pre save runs before save data on Mongodb
-GuideSchema.pre("save", async function (next) {
+AgentSchema.pre("save", async function (next) {
       //checking whether the password isModified
       if (!this.isModified("password")) {
         next();
@@ -61,16 +70,16 @@ GuideSchema.pre("save", async function (next) {
     });
 
 //to compare hashed passwords in login scenarios
-GuideSchema.methods.matchPasswords = async function (password) {
+AgentSchema.methods.matchPasswords = async function (password) {
       return await bcrypt.compare(password, this.password); //password refers to user providing one and this.password refers to one that get from db
     };
 
-GuideSchema.methods.getSignedToken = function () {
+AgentSchema.methods.getSignedToken = function () {
       return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
       });
     };
 
 
-const Guide = mongoose.model("Guide", GuideSchema);
-module.exports = Guide;
+const Agent = mongoose.model("Agent", AgentSchema);
+module.exports = Agent;

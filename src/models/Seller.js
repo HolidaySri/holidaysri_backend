@@ -4,50 +4,42 @@ const jwt = require("jsonwebtoken");
 const Schema = mongoose.Schema;
 
 
-const GuideSchema = new Schema({
+const SellerSchema = new Schema({
+
   role: {
-      type: String,
-      default: "guide",
+    type: String,
+    default:"seller",
+
   },
-  name: {
-      type: String,
-  },
-  nic: {
-      type: String,
-      unique: true,
-  },
-  email: {
-      type: String,
-      unique: true,
-  },
-  contactNumber: {
-      type: Number,
-      required: true
-  },
-  password: {
-      type: String,
-      required: true
-  },
+ 
+  name :{
+    type: String,
+    require: true
+},
+
+  email :{
+    type: String,
+   
+   },
+   
+  contactNumber : {
+    type: Number,
   
-  location: {
-      type: String,
-      required: true
-  },
+},
 
-  certificateImage: {
-    type: String
-  },
+  password: {
+    type: String,
+   
+ },
 
-  experience:{
-    type: String
-  },
+  resetPasswordToken : String,
+  resetPasswordExpire : Date,
 
-  resetPasswordToken: String,
-  resetPasswordExpire: Date,
-});
+  
+})
 
 //pre save runs before save data on Mongodb
-GuideSchema.pre("save", async function (next) {
+SellerSchema.pre("save", async function (next) {
       //checking whether the password isModified
       if (!this.isModified("password")) {
         next();
@@ -61,16 +53,16 @@ GuideSchema.pre("save", async function (next) {
     });
 
 //to compare hashed passwords in login scenarios
-GuideSchema.methods.matchPasswords = async function (password) {
+SellerSchema.methods.matchPasswords = async function (password) {
       return await bcrypt.compare(password, this.password); //password refers to user providing one and this.password refers to one that get from db
     };
 
-GuideSchema.methods.getSignedToken = function () {
+SellerSchema.methods.getSignedToken = function () {
       return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
       });
     };
 
 
-const Guide = mongoose.model("Guide", GuideSchema);
-module.exports = Guide;
+const Seller = mongoose.model("Seller", SellerSchema);
+module.exports = Seller;

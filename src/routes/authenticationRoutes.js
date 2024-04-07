@@ -10,7 +10,13 @@ const {
   registerGuide,
   guideLogin,
   registerPartner,
-  partnerLogin
+  partnerLogin,
+  registerAgent,
+  agentLogin,
+  registerSeller,
+  sellerLogin,
+
+
   
 } = require("../controllers/authenticationController");
  
@@ -21,6 +27,8 @@ router.route("/registeruser").post(registerUser);
 router.route("/registeradmin").post(registerAdmin);
 router.route("/registerguide").post(registerGuide);
 router.route("/registerpartner").post(registerPartner);
+router.route("/registeragent").post(registerAgent);
+router.route("/registerseller").post(registerSeller);
 
 //login routes
 router.route("/userlogin").post(userLogin);
@@ -28,7 +36,8 @@ router.route("/userlogin").post(userLogin);
 router.route("/adminlogin").post(adminLogin);
 router.route("/guidelogin").post(guideLogin);
 router.route("/partnerlogin").post(partnerLogin);
-
+router.route("/agentlogin").post(agentLogin);
+router.route("/sellerlogin").post(sellerLogin);
 
 
 //router.route("/forgotpassword").post(forgotpassword);
