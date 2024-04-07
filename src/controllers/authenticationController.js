@@ -2,12 +2,16 @@ const Admin = require("../models/Admin");
 const User = require("../models/User");
 const Guide = require("../models/Guide");
 const Partner = require("../models/Partner");
+const Agent = require("../models/Agent");
+const Seller = require("../models/Seller");
+
 
 exports.registerUser = async (req, res, next) => {
-  const {  name, email, contactNumber, password } = req.body;
-
+  const {role,name, email, contactNumber, password } = req.body;
+ 
   try {
     const user = await User.create({
+      role,
       name,
       email,
       contactNumber,
@@ -41,7 +45,7 @@ exports.registerAdmin = async (req, res, next) => {
 };
 
 exports.registerGuide = async (req, res, next) => {
-  const { role,name, nic, email, contactNumber, password, location } = req.body;
+  const { role,name, nic, email, contactNumber, password, location,certificateImage,experience } = req.body;
 
   try {
     const guide = await Guide.create({
@@ -51,7 +55,9 @@ exports.registerGuide = async (req, res, next) => {
       email,
       contactNumber,
       password,
-      location
+      location,
+      certificateImage,
+      experience
     });
     sendToken1(guide, 201, res);
   } catch (error) {
@@ -83,6 +89,60 @@ exports.registerPartner = async (req, res, next) => {
     });
   }
 };
+
+
+
+
+exports.registerAgent = async (req, res, next) => {
+  const {role,subrole,name,nic,passport,email,contactNumber,password,promoCode } = req.body;
+
+  try {
+    const agent = await Agent.create({
+            role,
+            subrole,
+            name,
+            nic,
+            passport,
+            email,
+            contactNumber,
+            password,
+            promoCode
+    });
+    sendToken4(agent, 201, res);
+  } catch (error) {
+    res.status(500).json({
+      error,
+      desc: "Error occurred in registers agent" + error,
+    });
+  }
+};
+
+
+
+
+
+exports.registerSeller = async (req, res, next) => {
+  const {role,name, email,contactNumber,password} = req.body;
+
+  try {
+    const seller = await Seller.create({
+            role,
+            name,
+            email,
+            contactNumber,
+            password
+    });
+    sendToken5(seller, 201, res);
+  } catch (error) {
+    res.status(500).json({
+      error,
+      desc: "Error occurred in registers Seller" + error,
+    });
+  }
+};
+
+
+
 
 exports.userLogin = async (req, res, next) => {
   const { email, password } = req.body;
@@ -240,6 +300,91 @@ exports.partnerLogin = async (req, res, next) => {
   }
 };
 
+
+
+
+
+
+
+exports.agentLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({
+      success: false,
+      desc: "Provide email and password",
+    });
+  }
+
+  try {
+    const agent = await Agent.findOne({ email }).select("+password");
+
+    if (!agent) {
+      return res.status(404).json({
+        success: false,
+        error: "Invalid credentials",
+      });
+    }
+
+    const isMatch = await agent.matchPasswords(password);
+
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        error: "Invalid credentials, please try again",
+      });
+    }
+
+    sendToken4(agent, 200, res, email);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+
+
+
+exports.sellerLogin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({
+      success: false,
+      desc: "Provide email and password",
+    });
+  }
+
+  try {
+    const seller = await Seller.findOne({ email }).select("+password");
+
+    if (!seller) {
+      return res.status(404).json({
+        success: false,
+        error: "Invalid credentials",
+      });
+    }
+
+    const isMatch = await seller.matchPasswords(password);
+
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        error: "Invalid credentials, please try again",
+      });
+    }
+
+    sendToken5(seller, 200, res, email);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 const sendToken = (user, statusCode, res, email) => {
   const token = user.getSignedToken();
   es.status(statusCode).json({ success: true, token, user, email });
@@ -258,4 +403,17 @@ const sendToken2 = (admin, statusCode, res, email) => {
 const sendToken3 = (partner, statusCode, res, email) => {
   const token = partner.getSignedToken();
   res.status(statusCode).json({ sucess: true, token, partner, email });
+};
+
+
+const sendToken4 = (agent, statusCode, res, email) => {
+  const token = agent.getSignedToken();
+  res.status(statusCode).json({ sucess: true, token, agent, email });
+};
+
+
+
+const sendToken5 = (seller, statusCode, res, email) => {
+  const token = seller.getSignedToken();
+  res.status(statusCode).json({ sucess: true, token, seller, email });
 };

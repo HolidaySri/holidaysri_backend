@@ -4,7 +4,8 @@ const Admin = require("../models/Admin");
 const User = require("../models/User");
 const Guide = require("../models/Guide");
 const Partner = require("../models/Partner");
-
+const Agent = require("../models/Agent");
+const Seller = require("../models/Seller");
 exports.protectedAdmin = async (req, res, next) => {
     let token;
     token = tokenValidate(req, res);
@@ -66,6 +67,43 @@ exports.protectedUser = async (req, res, next) => {
         noUserResponse(res);
       } else {
         req.partner = partner;
+        next();
+      }
+    } catch (err) {
+      invalidUserResponse(res, err);
+    }
+  };
+
+
+  exports.protectedAgent = async (req, res, next) => {
+    let token;
+    token = tokenValidate(req, res);
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const agent = await Agent.findById(decoded.id);
+      if (!agent) {
+        noUserResponse(res);
+      } else {
+        req.agent = agent;
+        next();
+      }
+    } catch (err) {
+      invalidUserResponse(res, err);
+    }
+  };
+
+
+
+  exports.protectedSeller = async (req, res, next) => {
+    let token;
+    token = tokenValidate(req, res);
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const seller = await Seller.findById(decoded.id);
+      if (!seller) {
+        noUserResponse(res);
+      } else {
+        req.seller = seller;
         next();
       }
     } catch (err) {

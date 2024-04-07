@@ -16,6 +16,8 @@ app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/guide', require('./routes/guideRoutes'));
 app.use('/api/partner', require('./routes/partnerRoutes'));
+app.use('/api/agent', require('./routes/agentRoutes'));
+app.use('/api/seller', require('./routes/sellerRoutes'));
 //app.use('/api/vehicle', require('./routes/vehicleRouter'));
 
 //product router
