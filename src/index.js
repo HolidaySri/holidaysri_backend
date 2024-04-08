@@ -56,6 +56,10 @@ app.use("/rate", rateRouter);
 const realTimeRouter = require("./routes/realTimeRoutes.js");
 app.use("/realTime", realTimeRouter);
 
+//Booking Router
+const bookingRouter = require("./routes/bookingRoutes.js");
+app.use("/booking", bookingRouter);
+
 const initialize = async () => {
     try {
       await mongoose.connect(process.env.MONGO_CONNECT_URL);
