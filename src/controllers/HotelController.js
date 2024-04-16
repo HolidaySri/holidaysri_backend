@@ -80,5 +80,15 @@ exports.addNewHotel= async (req, res) => {
     })
   }
 
-
+//view one
+exports.viewHotelByLocation = async (req, res) => {
+    
+  let locationid = req.params.location;
+  const location = await hotel.find(locationid).then((location) => {
+      res.status(200).send({status: "  fetched", location})
+  }).catch(() => {
+      
+       res.status(500).send({status:"Error with get " , error: err.message})
+  })
+}
 
