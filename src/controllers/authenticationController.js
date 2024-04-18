@@ -20,8 +20,8 @@ exports.registerUser = async (req, res, next) => {
     sendToken(user, 200, res);
   } catch (error) {
     res.status(500).json({
-      error,
-      desc: "Error occurred in registersuser" + error,
+      success: false,
+      error: "User registration failed. Please try again later.",
     });
   }
 };
@@ -94,7 +94,7 @@ exports.registerPartner = async (req, res, next) => {
 
 
 exports.registerAgent = async (req, res, next) => {
-  const {role,subrole,name,nic,passport,email,contactNumber,password,promoCode } = req.body;
+  const {role,subrole,name,nic,passport,email,contactNumber,password,promoCode, image } = req.body;
 
   try {
     const agent = await Agent.create({
@@ -106,7 +106,8 @@ exports.registerAgent = async (req, res, next) => {
             email,
             contactNumber,
             password,
-            promoCode
+            promoCode,
+            image
     });
     sendToken4(agent, 201, res);
   } catch (error) {
@@ -387,7 +388,7 @@ exports.sellerLogin = async (req, res, next) => {
 
 const sendToken = (user, statusCode, res, email) => {
   const token = user.getSignedToken();
-  es.status(statusCode).json({ success: true, token, user, email });
+  res.status(statusCode).json({ success: true, token, user, email });
 };
 
 const sendToken1 = (guide, statusCode, res, email) => {

@@ -49,6 +49,11 @@ const AgentSchema = new Schema({
         type: String,
       
       },
+
+      image : {
+        type: String,
+      
+      },
     
       resetPasswordToken : String,
       resetPasswordExpire : Date,
