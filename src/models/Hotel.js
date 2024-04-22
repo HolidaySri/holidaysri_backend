@@ -44,6 +44,10 @@ const hotelSchema = new Schema({
       type: String
     },
 
+    webUrl:{
+      type: String
+    },
+
 }, { timestamps: true }); // Adding { timestamps: true } here
 
 const Hotel = mongoose.model("Hotel", hotelSchema);
