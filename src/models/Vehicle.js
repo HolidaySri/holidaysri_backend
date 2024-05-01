@@ -12,7 +12,8 @@ const VehicleSchema = new Schema(
       description: String,
       images: String,
       location:String,
-      promoCode: String
+      promoCode: String,
+      driverStatus: String
     },
   );
   
