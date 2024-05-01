@@ -14,15 +14,14 @@ exports.addNewVehicle= async (req, res) => {
       description,
       images,
       location,
-      promoCode
+      promoCode,
+      driverStatus
      } = req.body;
   
   
     vehicleDetails.findOne({vehicleNumber: vehicleNumber})
-      .then((savedVehicle) => {
-          if(savedVehicle) {
-              return res.status(422).json({error:"Vehicle already exists with that no"})
-          }
+      .then(() => {
+         
   
           const newVehicle = new vehicleDetails({
             vehicleNumber,
@@ -35,7 +34,8 @@ exports.addNewVehicle= async (req, res) => {
             description,
             images,
             location,
-            promoCode
+            promoCode,
+            driverStatus
            
         })
     
@@ -76,7 +76,8 @@ exports.deleteVehicle = async (req, res) => {
             description,
             images,
             location,
-            promoCode
+            promoCode,
+            driverStatus
            } = req.body;
   
     const updateVehicle = {
@@ -90,7 +91,9 @@ exports.deleteVehicle = async (req, res) => {
       description,
       images,
       location,
-      promoCode }
+      promoCode,
+      driverStatus
+     }
   
   
     const update = await vehicleDetails.findByIdAndUpdate(id, updateVehicle).then(() => {
