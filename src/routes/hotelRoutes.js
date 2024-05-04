@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const {addNewHotel,viewHotels,viewOneHotel, updateHotel,deleteHotel} = require ('../controllers/HotelController.js')
+const {addNewHotel,viewHotels,viewOneHotel, updateHotel,deleteHotel,viewHotelByLocation} = require ('../controllers/HotelController.js')
 
 //add new Hotel 
 router.post("/add", addNewHotel);
@@ -17,6 +17,8 @@ router.get("/", viewHotels);
 //view one Hotel
 router.get("/get/:id", viewOneHotel);
 
+//view one Hotel
+router.get("/getlocation/:locationid", viewHotelByLocation);
 
 
 module.exports = router;

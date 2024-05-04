@@ -28,10 +28,26 @@ const hotelSchema = new Schema({
       type: String
     },
 
-    distance: {
+    googleMap: {
       type: String
     },
-   
+
+    whatsappNumber: {
+      type: String
+    },
+
+    fb: {
+      type: String
+    },
+
+    contactNumber: {
+      type: String
+    },
+
+    webUrl:{
+      type: String
+    },
+
 }, { timestamps: true }); // Adding { timestamps: true } here
 
 const Hotel = mongoose.model("Hotel", hotelSchema);

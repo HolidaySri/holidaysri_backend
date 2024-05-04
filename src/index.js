@@ -3,7 +3,7 @@ const cors = require("cors");
 const  mongoose = require('mongoose');
 require("dotenv").config();
 
-const userRouter = require("./routes/User-routes");
+// const userRouter = require("./routes/User-routes");
 
 const app = express();
 // Enable all CORS requests
@@ -11,10 +11,13 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use("/user",userRouter);
-
 app.use('/api/auth', require('./routes/authenticationRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
+app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/guide', require('./routes/guideRoutes'));
+app.use('/api/partner', require('./routes/partnerRoutes'));
+app.use('/api/agent', require('./routes/agentRoutes'));
+app.use('/api/seller', require('./routes/sellerRoutes'));
 //app.use('/api/vehicle', require('./routes/vehicleRouter'));
 
 //product router
@@ -45,8 +48,17 @@ app.use("/package", packageRouter);
 const hotelRouter = require("./routes/hotelRoutes.js");
 app.use("/hotel", hotelRouter);
 
+//Rates Router
 const rateRouter = require("./routes/rateRoutes.js");
 app.use("/rate", rateRouter);
+
+//RealTime Router
+const realTimeRouter = require("./routes/realTimeRoutes.js");
+app.use("/realTime", realTimeRouter);
+
+//Booking Router
+const bookingRouter = require("./routes/bookingRoutes.js");
+app.use("/booking", bookingRouter);
 
 const initialize = async () => {
     try {

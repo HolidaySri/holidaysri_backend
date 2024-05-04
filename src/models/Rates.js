@@ -6,37 +6,40 @@ const rateSchema = new Schema({
     rateID: {
         type: String,
     },
-    discountHotelPercentage: {
+    discounthotelPercentage: {
         type: Number,
     },
-    discountPackagePercentage: {
+    discountpackagePercentage: {
         type: Number,
     },
-    discountSouveniourPercentage: {
+    discountsouveniourPercentage: {
         type: Number,
     },
-    discountGiftsPercentage: {
+    discountgiftsPercentage: {
         type: Number,
     },
-    discountCollectiblePercentage: {
+    discountcollectiblePercentage: {
         type: Number,
     },
-    discountVehiclePercentage: {
+    discountvehiclePercentage: {
         type: Number,
     },
-    discountAgentPercentage: {
+    discountagentPercentage: {
         type: Number,
     },
-    discountGuidePercentage: {
+    discountguidePercentage: {
         type: Number,
     },
     hotelAdvertiseRate: {
         type: Number,
     },
-    SouveniourAdvertiseRate: {
+    packageAdvertiseRate: {
         type: Number,
     },
-    giftAdvertiseRate: {
+    souveniourAdvertiseRate: {
+        type: Number,
+    },
+    giftsAdvertiseRate: {
         type: Number,
     },
     collectibleAdvertiseRate: {
@@ -45,10 +48,10 @@ const rateSchema = new Schema({
     vehicleAdvertiseRate: {
         type: Number,
     },
-    agentRegisterRate: {
+    agentAdvertiseRate: {
         type: Number,
     },
-    guideRegisterRate: {
+    guideAdvertiseRate: {
         type: Number,
     },
 

@@ -3,7 +3,8 @@ const hotel = require("../models/Hotel");
 exports.addNewHotel= async (req, res) => {
  
     //constant variables for the attributes
-    const {hotelName,category,location,description,price,images,distance} = req.body;
+    const {hotelName,category,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber,webUrl
+   } = req.body;
   
   
     hotel.findOne({hotelName: hotelName})
@@ -11,7 +12,7 @@ exports.addNewHotel= async (req, res) => {
          
   
           const newHotel = new hotel({
-            hotelName,category,location,description,price,images,distance
+            hotelName,category,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber,webUrl   
         })
     
         newHotel.save().then(() => {
@@ -41,9 +42,9 @@ exports.addNewHotel= async (req, res) => {
     exports.updateHotel= async (req, res) => { 
     //fetch id from url
     let hotelid = req.params.id;
-    const {hotelName,category,location,description,price,images,distance} = req.body;
+    const {hotelName,category,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber,webUrl   } = req.body;
     const updateHotel = {
-        hotelName,category,location,description,price,images,distance
+        hotelName,category,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber,webUrl   
     }
   
     const update = await hotel.findByIdAndUpdate(hotelid, updateHotel).then(() => {
@@ -76,5 +77,15 @@ exports.addNewHotel= async (req, res) => {
     })
   }
 
-
+//view one
+exports.viewHotelByLocation = async (req, res) => {
+    
+  let locationid = req.params.location;
+  const location = await hotel.find(locationid).then((location) => {
+      res.status(200).send({status: "  fetched", location})
+  }).catch(() => {
+      
+       res.status(500).send({status:"Error with get " , error: err.message})
+  })
+}
 

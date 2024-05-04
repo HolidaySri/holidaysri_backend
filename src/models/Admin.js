@@ -11,16 +11,17 @@ const adminSchema = new Schema({
   },
 
   email : {
-        type : String,
-        unique: true,
-        require: true
+    type : String,
+    unique: true,
+    require: true
   },
-   phoneno : {
+
+  contactNumber : {
     type: Number,
     require: true
-},
+  },
 
-   password: {
+  password: {
     type: String,
     require: true
    },
