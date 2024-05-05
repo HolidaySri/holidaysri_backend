@@ -10,7 +10,7 @@ exports.addNewPackage= async (req, res) => {
       .then((savedPackage) => {
          
   
-          const newPackage = new package({
+          const newPackage = new packages({
             packageName,category,location,description,price,images,activities
         })
     
