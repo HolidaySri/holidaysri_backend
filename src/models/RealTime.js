@@ -15,6 +15,9 @@ const realTimeSchema = new Schema({
     phoneNumber: {
         type: Number,
     },
+    email: {
+        type: String,
+    },
     Route: {
         type: String,
     },
