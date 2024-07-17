@@ -44,6 +44,10 @@ app.use("/promo", promoCodeRouter);
 const packageRouter = require("./routes/packageRoutes.js");
 app.use("/package", packageRouter);
 
+//Local Package  router
+const localPackageRouter = require("./routes/localPackageRoutes.js");
+app.use("/localPackage", localPackageRouter);
+
 //Hotel router
 const hotelRouter = require("./routes/hotelRoutes.js");
 app.use("/hotel", hotelRouter);
