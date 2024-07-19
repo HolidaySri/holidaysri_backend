@@ -64,6 +64,10 @@ app.use("/realTime", realTimeRouter);
 const bookingRouter = require("./routes/bookingRoutes.js");
 app.use("/booking", bookingRouter);
 
+//Collection Router
+const collectionRouter = require('./routes/collectionRoutes.js');
+app.use('/collection', collectionRouter);
+
 const initialize = async () => {
     try {
       await mongoose.connect(process.env.MONGO_CONNECT_URL);
