@@ -1,86 +1,31 @@
 const vehicleDetails = require("../models/Vehicle");
+const Backup = require("../models/Backup");
 
-//add new Vehicle for system
-exports.addNewVehicle= async (req, res) => {
- 
-    //constant variables for the attributes
-    const {vehicleNumber,
-      Vehiclecategory,
-      contactNumber,
-      price,
-      nic,
-      gender,
-      expDate,
-      description,
-      images,
-      location,
-      promoCode,
-      driverStatus
-     } = req.body;
-  
-  
-    vehicleDetails.findOne({vehicleNumber: vehicleNumber})
-      .then(() => {
-         
-  
-          const newVehicle = new vehicleDetails({
-            vehicleNumber,
-            Vehiclecategory,
-            contactNumber,
-            price,
-            nic,
-            gender,
-            expDate,
-            description,
-            images,
-            location,
-            promoCode,
-            driverStatus
-           
-        })
-    
-        newVehicle.save().then(() => {
-             res.json("Vehicle Added")
-    
-        }).catch((err) => {
-          
-        })
-      
-    }).catch((err) =>{
-        
-    })
+// Add new Vehicle for system
+exports.addNewVehicle = async (req, res) => {
+  const {
+    vehicleNumber,
+    Vehiclecategory,
+    contactNumber,
+    price,
+    nic,
+    gender,
+    expDate,
+    description,
+    images,
+    location,
+    promoCode,
+    driverStatus
+  } = req.body;
+
+  try {
+    const savedVehicle = await vehicleDetails.findOne({ vehicleNumber: vehicleNumber });
+
+    if (savedVehicle) {
+      return res.status(422).json({ error: "Vehicle already exists with that number" });
     }
 
-//delete existing one
-exports.deleteVehicle = async (req, res) => {
-    let vehicleNumber = req.params.id;
-   
-    await vehicleDetails.findByIdAndDelete(vehicleNumber).then(() => {
-      res.status(200).json({ status: "Deleted Successfully" });
-    }).catch((error) => {
-      res.status(500).json({ status: "Error with Deleting", error: error.message });
-    })
-  }
-   
- //update 
- exports.updateVehicle= async (req, res) => { 
-    //fetch id from url
-    let id = req.params.id;
-    const {vehicleNumber,
-            Vehiclecategory,
-            contactNumber,
-            price,
-            nic,
-            gender,
-            expDate,
-            description,
-            images,
-            location,
-            promoCode,
-            driverStatus
-           } = req.body;
-  
-    const updateVehicle = {
+    const newVehicle = new vehicleDetails({
       vehicleNumber,
       Vehiclecategory,
       contactNumber,
@@ -93,37 +38,117 @@ exports.deleteVehicle = async (req, res) => {
       location,
       promoCode,
       driverStatus
-     }
-  
-  
-    const update = await vehicleDetails.findByIdAndUpdate(id, updateVehicle).then(() => {
-      res.status(200).send({status: "Result updated"})
-    }).catch((err) => {
-       
-        res.status(500).send({status: "Error with updating data", error: err.message});
-    })   
-  }
+    });
 
-//view 
-exports.viewVehicle= async (req, res) => { 
- 
-    //calling  model
-    vehicleDetails.find().then((vehicles) => {
-      res.json(vehicles)
-  
-  }).catch((err) => {
-     
-  })
-  
+    await newVehicle.save();
+    res.json("Vehicle Added");
+  } catch (err) {
+    res.status(500).json({ error: "Error adding vehicle details", message: err.message });
   }
-  //view one
-  exports.viewOneVehicle = async (req, res) => {
-    
-    let vehicleNumber = req.params.id;
-    const vehicle = await vehicleDetails.findById(vehicleNumber).then((vehicle) => {
-        res.status(200).send({status: "  fetched", vehicleNumber})
-    }).catch(() => {
-        
-         res.status(500).send({status:"Error with get " , error: err.message})
-    })
+};
+
+// Delete existing one
+exports.deleteVehicle = async (req, res) => {
+  let vehicleNumber = req.params.id;
+
+  try {
+    const vehicleToDelete = await vehicleDetails.findById(vehicleNumber);
+
+    if (!vehicleToDelete) {
+      return res.status(404).json({ status: "Vehicle not found" });
+    }
+
+    const Data = [
+      `vehicleNumber: ${vehicleToDelete.vehicleNumber}`,
+      `Vehiclecategory: ${vehicleToDelete.Vehiclecategory}`,
+      `contactNumber: ${vehicleToDelete.contactNumber}`,
+      `price: ${vehicleToDelete.price}`,
+      `nic: ${vehicleToDelete.nic}`,
+      `gender: ${vehicleToDelete.gender}`,
+      `expDate: ${vehicleToDelete.expDate}`,
+      `description: ${vehicleToDelete.description}`,
+      `images: ${vehicleToDelete.images}`,
+      `location: ${vehicleToDelete.location}`,
+      `promoCode: ${vehicleToDelete.promoCode}`,
+      `driverStatus: ${vehicleToDelete.driverStatus}`
+    ];
+
+    const deletedVehicle = new Backup({
+      Data,
+      originalModel: "Vehicle"
+    });
+
+    await deletedVehicle.save();
+    await vehicleDetails.findByIdAndDelete(vehicleNumber);
+
+    res.status(200).json({ status: "Deleted Successfully and backed up" });
+  } catch (error) {
+    res.status(500).json({ status: "Error with Deleting", error: error.message });
   }
+};
+
+// Update
+exports.updateVehicle = async (req, res) => {
+  let id = req.params.id;
+  const {
+    vehicleNumber,
+    Vehiclecategory,
+    contactNumber,
+    price,
+    nic,
+    gender,
+    expDate,
+    description,
+    images,
+    location,
+    promoCode,
+    driverStatus
+  } = req.body;
+
+  const updateVehicle = {
+    vehicleNumber,
+    Vehiclecategory,
+    contactNumber,
+    price,
+    nic,
+    gender,
+    expDate,
+    description,
+    images,
+    location,
+    promoCode,
+    driverStatus
+  };
+
+  try {
+    await vehicleDetails.findByIdAndUpdate(id, updateVehicle);
+    res.status(200).send({ status: "Vehicle details successfully updated" });
+  } catch (err) {
+    res.status(500).send({ status: "Error with updating data", error: err.message });
+  }
+};
+
+// View all vehicles
+exports.viewVehicle = async (req, res) => {
+  try {
+    const vehicles = await vehicleDetails.find();
+    res.json(vehicles);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching vehicles", message: err.message });
+  }
+};
+
+// View one vehicle
+exports.viewOneVehicle = async (req, res) => {
+  let vehicleNumber = req.params.id;
+
+  try {
+    const vehicle = await vehicleDetails.findById(vehicleNumber);
+    if (!vehicle) {
+      return res.status(404).json({ status: "Vehicle not found" });
+    }
+    res.status(200).send({ status: "Vehicle details fetched", vehicle });
+  } catch (err) {
+    res.status(500).send({ status: "Error with get", error: err.message });
+  }
+};

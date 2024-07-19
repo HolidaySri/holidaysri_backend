@@ -1,101 +1,113 @@
-const location = require("../models/Location");
+const Location = require("../models/Location");
+const Backup = require("../models/Backup");
 
-//add new Location for system
-exports.addNewLocation= async (req, res) => {
- 
-    //constant variables for the attributes
-    const {locationName,district, province,distanceFromColombo,images,details,backgroundImage} = req.body;
-  
-  
-    location.findOne({locationName: locationName})
-      .then((savedLocation) => {
-         
-  
-          const newLocation = new location({
-            locationName,
-            district,
-            province,
-            distanceFromColombo,
-            images,
-            details,
-            backgroundImage
-        })
-    
-        newLocation.save().then(() => {
-             res.json("New Location Added")
-    
-        }).catch((err) => {
-          
-        })
-      
-    }).catch((err) =>{
-        
-    })
-    }
-    
-    //delete existing one
-    exports.deleteLocation = async (req, res) => {
-    let locationId = req.params.id;
-    
-    await location.findByIdAndDelete(locationId).then(() => {
-      res.status(200).json({ status: "Deleted Successfully" });
-    }).catch((error) => {
-      res.status(500).json({ status: "Error with Deleting", error: error.message });
-    })
-    }
-    
-    //update 
-    exports.updateLocation= async (req, res) => { 
-    //fetch id from url
-    let locationid = req.params.id;
-    const {locationName,district, province,distanceFromColombo,images,details,backgroundImage} = req.body;
-    const updateLocation = {
-        locationName,district, province,distanceFromColombo,images,details,backgroundImage
-    }
-  
-    const update = await location.findByIdAndUpdate(locationid, updateLocation).then(() => {
-      res.status(200).send({status: "Location details successfully updated"})
-    }).catch((err) => {
-       
-        res.status(500).send({status: "Error with updating data", error: err.message});
-    })   
-    }
-    
-    //view 
-    exports.viewLocations= async (req, res) => { 
-    //calling  model
-    location.find().then((location) => {
-      res.json(location)
-    }).catch((err) => {
+// Add new Location for system
+exports.addNewLocation = async (req, res) => {
+  const { locationName, district, province, distanceFromColombo, images, details, backgroundImage } = req.body;
 
-    })
-    }
-
- /*  //view one
-   exports.viewOneLocation = async (req, res) => {
-    
-    let locationid = req.params.id;
-    const location = await location.findById(locationid).then((location) => {
-        res.status(200).send({status: "  fetched", location})
-    }).catch(() => {
-        
-         res.status(500).send({status:"Error with get " , error: err.message})
-    })
-  }
-*/
-
-
-  exports.viewOneLocation = async (req, res) => {
-    try {
-      const locationId = req.params.id;
-      const foundLocation = await location.findById(locationId); // Assuming Location is your model
-      if (!foundLocation) {
-        return res.status(404).json({ status: "Location not found" });
+  Location.findOne({ locationName: locationName })
+    .then((savedLocation) => {
+      if (savedLocation) {
+        return res.status(422).json({ error: "Location Name already exists" });
       }
-      res.status(200).json({ status: "Location fetched", location: foundLocation });
-    } catch (error) {
-      console.error("Error fetching location:", error);
-      res.status(500).json({ status: "Error with get", error: error.message });
+
+      const newLocation = new Location({
+        locationName,
+        district,
+        province,
+        distanceFromColombo,
+        images,
+        details,
+        backgroundImage
+      });
+
+      newLocation.save().then(() => {
+        res.json("New Location Added");
+      }).catch((err) => {
+        res.status(500).json({ error: "Error adding location", message: err.message });
+      });
+    }).catch((err) => {
+      res.status(500).json({ error: "Error finding location", message: err.message });
+    });
+};
+
+// Delete existing one
+exports.deleteLocation = async (req, res) => {
+  let locationId = req.params.id;
+
+  try {
+    const locationToDelete = await Location.findById(locationId);
+
+    if (!locationToDelete) {
+      return res.status(404).json({ status: "Location not found" });
     }
+
+    const Data = [
+      `locationName: ${locationToDelete.locationName}`,
+      `district: ${locationToDelete.district}`,
+      `province: ${locationToDelete.province}`,
+      `distanceFromColombo: ${locationToDelete.distanceFromColombo}`,
+      `images: ${Array.isArray(locationToDelete.images) ? locationToDelete.images.join(', ') : locationToDelete.images}`,
+      `details: ${locationToDelete.details}`,
+      `backgroundImage: ${locationToDelete.backgroundImage}`
+    ];
+
+    const deletedLocation = new Backup({
+      Data,
+      originalModel: "Location"
+    });
+
+    await deletedLocation.save();
+    await Location.findByIdAndDelete(locationId);
+
+    res.status(200).json({ status: "Deleted Successfully and backed up" });
+  } catch (error) {
+    res.status(500).json({ status: "Error with Deleting", error: error.message });
+  }
+};
+
+// Update
+exports.updateLocation = async (req, res) => {
+  let locationId = req.params.id;
+  const { locationName, district, province, distanceFromColombo, images, details, backgroundImage } = req.body;
+  const updateLocation = {
+    locationName,
+    district,
+    province,
+    distanceFromColombo,
+    images,
+    details,
+    backgroundImage
   };
-  
+
+  Location.findByIdAndUpdate(locationId, updateLocation)
+    .then(() => {
+      res.status(200).send({ status: "Location details successfully updated" });
+    }).catch((err) => {
+      res.status(500).send({ status: "Error with updating data", error: err.message });
+    });
+};
+
+// View all locations
+exports.viewLocations = async (req, res) => {
+  Location.find().then((locations) => {
+    res.json(locations);
+  }).catch((err) => {
+    res.status(500).json({ error: "Error fetching locations", message: err.message });
+  });
+};
+
+// View one location
+exports.viewOneLocation = async (req, res) => {
+  try {
+    const locationId = req.params.id;
+    const foundLocation = await Location.findById(locationId);
+    if (!foundLocation) {
+      return res.status(404).json({ status: "Location not found" });
+    }
+    res.status(200).json({ status: "Location fetched", location: foundLocation });
+  } catch (error) {
+    console.error("Error fetching location:", error);
+    res.status(500).json({ status: "Error with get", error: error.message });
+  }
+};
