@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const packageSchema = new Schema({
+const localPackageSchema = new Schema({
 
     
-    packageName: {
+    localPackageName: {
        type: String,
+    },
+
+    email: {
+      type: String,
     },
 
     category: {
        type:String
-    },
-
-    email: {
-      type:String
     },
 
     location: {
@@ -44,5 +44,5 @@ const packageSchema = new Schema({
    
 }, { timestamps: true }); // Adding { timestamps: true } here
 
-const Package = mongoose.model("Package", packageSchema);
-module.exports = Package;
+const LocalPackage = mongoose.model("LocalPackage", localPackageSchema);
+module.exports = LocalPackage;
