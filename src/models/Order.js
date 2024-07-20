@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
   userName: { type: String, required: true },
+  email: { type: String },
   totalAmount: { type: Number, required: true },
   promoCode: { type: String, required: true },
   payableAmount: { type: Number, required: true },

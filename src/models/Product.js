@@ -12,6 +12,10 @@ const productSchema = new Schema({
        type:String
     },
 
+    email: {
+      type:String
+   },
+
     location: {
        type: String,
     },

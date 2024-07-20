@@ -3,7 +3,7 @@ const Backup = require("../models/Backup");
 
 // Add new Product for system
 exports.addNewProduct = async (req, res) => {
-  const { productName, category, location, description, price, images, contactNumber } = req.body;
+  const { productName, category, email, location, description, price, images, contactNumber } = req.body;
 
   Product.findOne({ productName: productName })
     .then((savedProduct) => {
@@ -14,6 +14,7 @@ exports.addNewProduct = async (req, res) => {
       const newProduct = new Product({
         productName,
         category,
+        email,
         location,
         description,
         price,
@@ -45,6 +46,7 @@ exports.deleteProduct = async (req, res) => {
     const Data = [
       `productName: ${productToDelete.productName}`,
       `category: ${productToDelete.category}`,
+      `email: ${productToDelete.email}`,
       `location: ${productToDelete.location}`,
       `description: ${productToDelete.description}`,
       `price: ${productToDelete.price}`,
@@ -69,10 +71,11 @@ exports.deleteProduct = async (req, res) => {
 // Update
 exports.updateProduct = async (req, res) => {
   let productId = req.params.id;
-  const { productName, category, location, description, price, images, contactNumber } = req.body;
+  const { productName, category, email, location, description, price, images, contactNumber } = req.body;
   const updateProduct = {
     productName,
     category,
+    email,
     location,
     description,
     price,

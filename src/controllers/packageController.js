@@ -3,7 +3,7 @@ const Backup = require("../models/Backup");
 
 // Add new Package for system
 exports.addNewPackage = async (req, res) => {
-  const { packageName, category, location, description, price, images, activities } = req.body;
+  const { packageName, category, email, location, description, price, images, activities } = req.body;
 
   Package.findOne({ packageName: packageName })
     .then((savedPackage) => {
@@ -14,6 +14,7 @@ exports.addNewPackage = async (req, res) => {
       const newPackage = new Package({
         packageName,
         category,
+        email,
         location,
         description,
         price,
@@ -45,6 +46,7 @@ exports.deletePackage = async (req, res) => {
     const Data = [
       `packageName: ${packageToDelete.packageName}`,
       `category: ${packageToDelete.category}`,
+      `email: ${packageToDelete.email}`,
       `location: ${packageToDelete.location}`,
       `description: ${packageToDelete.description}`,
       `price: ${packageToDelete.price}`,
@@ -69,10 +71,11 @@ exports.deletePackage = async (req, res) => {
 // Update
 exports.updatePackage = async (req, res) => {
   let packageId = req.params.id;
-  const { packageName, category, location, description, price, images, activities } = req.body;
+  const { packageName, category, email, location, description, price, images, activities } = req.body;
   const updatePackage = {
     packageName,
     category,
+    email,
     location,
     description,
     price,

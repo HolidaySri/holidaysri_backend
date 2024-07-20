@@ -2,7 +2,7 @@ const LocalPackage = require("../models/LocalPackage");
 const Backup = require("../models/Backup");
 
 exports.addNewLocalPackage = async (req, res) => {
-  const { localPackageName, category, location, description, price, images, activities } = req.body;
+  const { localPackageName, email, category, location, description, price, images, activities } = req.body;
 
   LocalPackage.findOne({ localPackageName: localPackageName })
     .then((savedLocalPackage) => {
@@ -12,6 +12,7 @@ exports.addNewLocalPackage = async (req, res) => {
 
       const newLocalPackage = new LocalPackage({
         localPackageName,
+        email,
         category,
         location,
         description,
@@ -43,6 +44,7 @@ exports.deleteLocalPackage = async (req, res) => {
 
     const Data = [
       `localPackageName: ${localPackageToDelete.localPackageName}`,
+      `email: ${localPackageToDelete.email}`,
       `category: ${localPackageToDelete.category}`,
       `location: ${localPackageToDelete.location}`,
       `description: ${localPackageToDelete.description}`,
@@ -68,9 +70,10 @@ exports.deleteLocalPackage = async (req, res) => {
 // update 
 exports.updateLocalPackage = async (req, res) => { 
   let packageId = req.params.id;
-  const { localPackageName, category, location, description, price, images, activities } = req.body;
+  const { localPackageName, email, category, location, description, price, images, activities } = req.body;
   const updateLocalPackage = {
     localPackageName,
+    email,
     category,
     location,
     description,
