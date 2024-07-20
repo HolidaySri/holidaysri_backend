@@ -4,7 +4,7 @@ const DeletedEvent = require("../models/Backup");
 
 // add new Event for system
 exports.addNewEvent = async (req, res) => {
-  const { eventName, eventLocation, description, images } = req.body;
+  const { eventName, email, eventLocation, description, images } = req.body;
 
   Event.findOne({ eventName: eventName })
     .then((savedEvent) => {
@@ -14,6 +14,7 @@ exports.addNewEvent = async (req, res) => {
 
       const newEvent = new Event({
         eventName,
+        email,
         eventLocation,
         description,
         images
@@ -42,6 +43,7 @@ exports.deleteEvent = async (req, res) => {
 
     const Data = [
       `eventName: ${eventToDelete.eventName}`,
+      `email: ${eventToDelete.email}`,
       `eventLocation: ${eventToDelete.eventLocation}`,
       `description: ${eventToDelete.description}`,
       `images: ${eventToDelete.images.join(', ')}`
@@ -64,9 +66,10 @@ exports.deleteEvent = async (req, res) => {
 // update 
 exports.updateEvent = async (req, res) => {
   let eventId = req.params.id;
-  const { eventName, eventLocation, description, images } = req.body;
+  const { eventName, email, eventLocation, description, images } = req.body;
   const updateEvent = {
     eventName,
+    email,
     eventLocation,
     description,
     images

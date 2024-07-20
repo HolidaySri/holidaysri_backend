@@ -5,14 +5,14 @@ const Order = require("../models/Order");
 // Generate promo code
 exports.generatePromoCode = async (req, res) => {
   try {
-    const { discountPercentage, userName } = req.body;
+    const { discountPercentage, email } = req.body;
     const generatedCode = generatePromoCode();
 
     // Calculate expiration date (1 year from the code generated date)
     const expirationDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
 
     const promoCode = new PromoCode({
-      userName,
+      email,
       code: generatedCode,
       discountPercentage,
       expirationDate,
@@ -41,18 +41,18 @@ exports.applyPromoCode = async (req, res) => {
       return res.status(403).json({ error: 'Promo code is expired or inactive' });
     }
 
-    const userName = promoCodeObj.userName;
+    const email = promoCodeObj.email;
     const discountPercentage = promoCodeObj.discountPercentage;
 
     const earning = new Earning({
-      userName,
+      email,
       amount: 200,
       promoCode,
     });
 
     await earning.save();
 
-    res.status(200).json({ userName, discountPercentage });
+    res.status(200).json({ email, discountPercentage });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -61,10 +61,10 @@ exports.applyPromoCode = async (req, res) => {
 // Save earnings
 exports.saveEarnings = async (req, res) => {
   try {
-    const { userName, amount, promoCode } = req.body;
+    const { email, amount, promoCode } = req.body;
 
     const earning = new Earning({
-      userName,
+      email,
       amount,
       promoCode,
     });
@@ -80,9 +80,9 @@ exports.saveEarnings = async (req, res) => {
 // Create order
 exports.createOrder = async (req, res) => {
   try {
-    const { userName, totalAmount, promoCode, payableAmount, items } = req.body;
+    const { email, totalAmount, promoCode, payableAmount, items } = req.body;
 
-    const order = new Order({ userName, totalAmount, promoCode, payableAmount, items });
+    const order = new Order({ email, totalAmount, promoCode, payableAmount, items });
     await order.save();
 
     res.status(201).send(order);

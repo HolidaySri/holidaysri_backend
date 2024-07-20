@@ -8,6 +8,10 @@ const localPackageSchema = new Schema({
        type: String,
     },
 
+    email: {
+      type: String,
+    },
+
     category: {
        type:String
     },

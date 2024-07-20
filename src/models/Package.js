@@ -12,6 +12,10 @@ const packageSchema = new Schema({
        type:String
     },
 
+    email: {
+      type:String
+    },
+
     location: {
        type: String,
     },

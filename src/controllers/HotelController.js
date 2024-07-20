@@ -6,6 +6,7 @@ exports.addNewHotel = async (req, res) => {
   const {
     hotelName,
     category,
+    email,
     location,
     description,
     price,
@@ -22,6 +23,7 @@ exports.addNewHotel = async (req, res) => {
       const newHotel = new Hotel({
         hotelName,
         category,
+        email,
         location,
         description,
         price,
@@ -57,6 +59,7 @@ exports.deleteHotel = async (req, res) => {
     const Data = [
       `hotelName: ${hotelToDelete.hotelName}`,
       `category: ${hotelToDelete.category}`,
+      `email: ${hotelToDelete.email}`,
       `location: ${hotelToDelete.location}`,
       `description: ${hotelToDelete.description}`,
       `price: ${hotelToDelete.price}`,
@@ -89,6 +92,7 @@ exports.updateHotel = async (req, res) => {
   const {
     hotelName,
     category,
+    email,
     location,
     description,
     price,
@@ -102,6 +106,7 @@ exports.updateHotel = async (req, res) => {
   const updateHotel = {
     hotelName,
     category,
+    email,
     location,
     description,
     price,

@@ -3,12 +3,12 @@ const Backup = require("../models/Backup");
 
 // add new booking for system
 exports.addNewBooking = async (req, res) => {
-  const { userName, hotelName, personCount, roomsCount, checkinDate, checkoutDate } = req.body;
+  const { email, hotelName, personCount, roomsCount, checkinDate, checkoutDate } = req.body;
 
-  Booking.findOne({ userName: userName })
+  Booking.findOne({ email: email })
     .then((savedBooking) => {
       const newBooking = new Booking({
-        userName,
+        email,
         hotelName,
         personCount,
         roomsCount,
@@ -38,7 +38,7 @@ exports.deleteBooking = async (req, res) => {
     }
 
     const Data = [
-      `userName: ${bookingToDelete.userName}`,
+      `email: ${bookingToDelete.email}`,
       `hotelName: ${bookingToDelete.hotelName}`,
       `personCount: ${bookingToDelete.personCount}`,
       `roomsCount: ${bookingToDelete.roomsCount}`,
@@ -63,9 +63,9 @@ exports.deleteBooking = async (req, res) => {
 // update 
 exports.updateBooking = async (req, res) => {
   let bookingId = req.params.id;
-  const { userName, hotelName, personCount, roomsCount, checkinDate, checkoutDate } = req.body;
+  const { email, hotelName, personCount, roomsCount, checkinDate, checkoutDate } = req.body;
   const updateBooking = {
-    userName,
+    email,
     hotelName,
     personCount,
     roomsCount,
