@@ -6,6 +6,7 @@ const promoCodeSchema = new mongoose.Schema({
   code: { type: String, unique: true, required: true },
   discountPercentage: { type: Number, required: true },
   expirationDate: { type: Date, required: true },
+  isActive: { type: Boolean, default: true }, // Add isActive field
 });
 
 const PromoCode = mongoose.model('PromoCode', promoCodeSchema);
