@@ -69,12 +69,13 @@ exports.registerGuide = async (req, res, next) => {
 };
 
 exports.registerPartner = async (req, res, next) => {
-  const { role, name, nic, email, contactNumber, password, location } = req.body;
+  const { role, name, subrole, nic, email, contactNumber, password, location } = req.body;
 
   try {
     const partner = await Partner.create({
       role,
       name,
+      subrole,
       nic,
       email,
       contactNumber,

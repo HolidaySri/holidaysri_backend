@@ -8,6 +8,7 @@ const VehicleSchema = new Schema(
       contactNumber: String,
       price: Number,
       nic: String,
+      email: String,
       gender: String, 
       description: String,
       images: String,

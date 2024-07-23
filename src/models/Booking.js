@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema({
   
-    userName: {
+    email: {
         type: String,
     },
     hotelName: {

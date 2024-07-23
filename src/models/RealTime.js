@@ -12,6 +12,12 @@ const realTimeSchema = new Schema({
     vehicleOwnerName: {
         type: String,
     },
+    phoneNumber: {
+        type: Number,
+    },
+    email: {
+        type: String,
+    },
     Route: {
         type: String,
     },

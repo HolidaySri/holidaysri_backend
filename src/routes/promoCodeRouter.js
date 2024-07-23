@@ -1,25 +1,24 @@
 const express = require('express');
-
-const {generatePromoCode,applyPromoCode,saveEarnings,createOrder,getOrders} = require ('../controllers/promoCodeController')
+const { generatePromoCode, applyPromoCode, saveEarnings, createOrder, getOrders, reactivatePromoCode } = require('../controllers/promoCodeController');
 
 const router = express.Router();
 
-//generate promo code
+// Generate promo code
 router.post("/generate-promo-code", generatePromoCode);
 
-//apply promo code
+// Apply promo code
 router.post("/apply-promo-code", applyPromoCode);
 
-//save earnings
+// Save earnings
 router.post("/save-earnings", saveEarnings);
 
-//create advertisement
-// router.post("/create-advertisement", createAdvertisement);
-
-//create order
+// Create order
 router.post("/create-order", createOrder);
 
-//get orders
+// Get orders
 router.post("/get-orders", getOrders);
+
+// Reactivate promo code
+router.post("/reactivate-promo-code", reactivatePromoCode);
 
 module.exports = router;

@@ -6,6 +6,9 @@ const eventSchema = new Schema({
     eventName: {
         type: String,
     },
+    email: {
+        type: String,
+    },
     eventLocation: {
         type: String,
     },

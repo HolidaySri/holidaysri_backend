@@ -9,13 +9,14 @@ const PartnerSchema = new Schema({
   role: {
     type: String,
     default:"partner",
-    
   },
-  
   name: {
     type: String,
   },
- 
+  subrole : {
+    type: String,
+    require: true
+  },
   nic :{
     type: String,
     unique: true
@@ -29,7 +30,6 @@ const PartnerSchema = new Schema({
     type: Number,
     require: true
 },
-
   password: {
     type: String,
     require: true

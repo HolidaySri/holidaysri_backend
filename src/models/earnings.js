@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const earningSchema = new mongoose.Schema({
-  userName: {
+  email: {
     type: String,
     required: true,
   },
