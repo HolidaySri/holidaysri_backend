@@ -2,7 +2,7 @@ const LocalPackage = require("../models/LocalPackage");
 const Backup = require("../models/Backup");
 
 exports.addNewLocalPackage = async (req, res) => {
-  const { localPackageName, email, category, location, description, price, images, activities } = req.body;
+  const { localPackageName, email, category, location, description, price, images, activities, mobile } = req.body;
 
   LocalPackage.findOne({ localPackageName: localPackageName })
     .then((savedLocalPackage) => {
@@ -18,7 +18,8 @@ exports.addNewLocalPackage = async (req, res) => {
         description,
         price,
         images,
-        activities
+        activities,
+        mobile
       });
 
       newLocalPackage.save().then(() => {
@@ -50,7 +51,8 @@ exports.deleteLocalPackage = async (req, res) => {
       `description: ${localPackageToDelete.description}`,
       `price: ${localPackageToDelete.price}`,
       `images: ${Array.isArray(localPackageToDelete.images) ? localPackageToDelete.images.join(', ') : localPackageToDelete.images}`,
-      `activities: ${localPackageToDelete.activities}`
+      `activities: ${localPackageToDelete.activities}`,
+      `mobile: ${localPackageToDelete.mobile}`
     ];
 
     const deletedLocalPackage = new Backup({
@@ -70,7 +72,7 @@ exports.deleteLocalPackage = async (req, res) => {
 // update 
 exports.updateLocalPackage = async (req, res) => { 
   let packageId = req.params.id;
-  const { localPackageName, email, category, location, description, price, images, activities } = req.body;
+  const { localPackageName, email, category, location, description, price, images, activities, mobile } = req.body;
   const updateLocalPackage = {
     localPackageName,
     email,
@@ -79,7 +81,8 @@ exports.updateLocalPackage = async (req, res) => {
     description,
     price,
     images,
-    activities
+    activities,
+    mobile
   };
 
   LocalPackage.findByIdAndUpdate(packageId, updateLocalPackage)

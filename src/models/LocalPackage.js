@@ -26,6 +26,10 @@ const localPackageSchema = new Schema({
 
     price: {
        type: String
+   },
+    
+   mobile: {
+      type: String
     },
 
     images: {
