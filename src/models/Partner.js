@@ -40,6 +40,10 @@ const PartnerSchema = new Schema({
     require: true
  },
 
+ profileImage:{
+  type:String
+ },
+
   resetPasswordToken : String,
   resetPasswordExpire : Date,
 

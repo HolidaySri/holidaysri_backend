@@ -6,9 +6,7 @@ exports.addNewLocalPackage = async (req, res) => {
 
   LocalPackage.findOne({ localPackageName: localPackageName })
     .then((savedLocalPackage) => {
-      if (savedLocalPackage) {
-        return res.status(422).json({ error: "Local Package Name already exists" });
-      }
+
 
       const newLocalPackage = new LocalPackage({
         localPackageName,
