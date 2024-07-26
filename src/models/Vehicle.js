@@ -11,10 +11,18 @@ const VehicleSchema = new Schema(
       email: String,
       gender: String, 
       description: String,
-      images: String,
       location:String,
       promoCode: String,
-      driverStatus: String
+      driverStatus: String,
+      images: {
+        type: [String], // Array of strings to store image URLs
+        validate: {
+            validator: function (v) {
+                return v.length <= 6; // Validate that the array length is at most 6
+            },
+            message: props => `${props.value} exceeds the limit of 6 images per location!`
+        }
+    },
     },
   );
   
