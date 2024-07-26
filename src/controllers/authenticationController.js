@@ -45,7 +45,7 @@ exports.registerAdmin = async (req, res, next) => {
 };
 
 exports.registerGuide = async (req, res, next) => {
-  const { role,name, nic, email, contactNumber, password, location,certificateImage,experience } = req.body;
+  const { role,name, nic, email, contactNumber, password, location,certificateImage,experience,profileImage } = req.body;
 
   try {
     const guide = await Guide.create({
@@ -57,7 +57,8 @@ exports.registerGuide = async (req, res, next) => {
       password,
       location,
       certificateImage,
-      experience
+      experience,
+      profileImage
     });
     sendToken1(guide, 201, res);
   } catch (error) {
@@ -69,7 +70,7 @@ exports.registerGuide = async (req, res, next) => {
 };
 
 exports.registerPartner = async (req, res, next) => {
-  const { role, name, subrole, nic, email, contactNumber, password, location } = req.body;
+  const { role, name, subrole, nic, email, contactNumber, password, location,profileImage} = req.body;
 
   try {
     const partner = await Partner.create({
@@ -80,7 +81,8 @@ exports.registerPartner = async (req, res, next) => {
       email,
       contactNumber,
       password,
-      location
+      location,
+      profileImage
     });
     sendToken3(partner, 201, res);
   } catch (error) {

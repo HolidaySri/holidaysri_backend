@@ -38,6 +38,10 @@ const GuideSchema = new Schema({
     type: String
   },
 
+  profileImage: {
+    type: String
+  },
+
   experience:{
     type: String
   },
