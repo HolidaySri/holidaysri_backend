@@ -5,11 +5,15 @@ const DeletedEvent = require("../models/Backup");
 
 // Add new Event for system
 exports.addNewEvent = async (req, res) => {
-  const { eventName, email, eventLocation, description, images } = req.body;
+  const { eventName, email, contactNo, date, ticketPrice, maximumCrowd, eventLocation, description, images } = req.body;
 
   const newEvent = new Event({
     eventName,
     email,
+    contactNo,
+    date,
+    ticketPrice,
+    maximumCrowd,
     eventLocation,
     description,
     images
@@ -61,10 +65,14 @@ exports.deleteEvent = async (req, res) => {
 // update 
 exports.updateEvent = async (req, res) => {
   let eventId = req.params.id;
-  const { eventName, email, eventLocation, description, images } = req.body;
+  const { eventName, email, contactNo, date, ticketPrice, maximumCrowd, eventLocation, description, images } = req.body;
   const updateEvent = {
     eventName,
     email,
+    contactNo, 
+    date, 
+    ticketPrice, 
+    maximumCrowd,
     eventLocation,
     description,
     images
