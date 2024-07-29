@@ -4,35 +4,15 @@ const Backup = require("../models/Backup");
 // add new hotel for system
 exports.addNewHotel = async (req, res) => {
   const {
-    hotelName,
-    category,
-    email,
-    location,
-    description,
-    price,
-    images,
-    googleMap,
-    whatsappNumber,
-    fb,
-    contactNumber,
-    webUrl
+    hotelName,category,email,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber,webUrl,fullboardPrice,halfboardPrice,liquor,smoke,roomType,roomCapacity,parking,internet,bbqFacilities,chef,activities,cctv
+ 
+
   } = req.body;
 
   Hotel.findOne({ hotelName: hotelName })
     .then((savedHotel) => {
       const newHotel = new Hotel({
-        hotelName,
-        category,
-        email,
-        location,
-        description,
-        price,
-        images,
-        googleMap,
-        whatsappNumber,
-        fb,
-        contactNumber,
-        webUrl
+        hotelName,category,email,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber,webUrl,fullboardPrice,halfboardPrice,liquor,smoke,roomType,roomCapacity,parking,internet,bbqFacilities,chef,activities,cctv
       });
 
       newHotel.save().then(() => {
@@ -68,7 +48,21 @@ exports.deleteHotel = async (req, res) => {
       `whatsappNumber: ${hotelToDelete.whatsappNumber}`,
       `fb: ${hotelToDelete.fb}`,
       `contactNumber: ${hotelToDelete.contactNumber}`,
-      `webUrl: ${hotelToDelete.webUrl}`
+      `webUrl: ${hotelToDelete.webUrl}`,
+      `fullboardPrice:${hotelToDelete.fullboardPrice}`,
+      `halfboardPrice:${hotelToDelete.halfboardPrice}`,
+      `liquor:${hotelToDelete.liquor}`,
+      `smoke:${hotelToDelete.smoke}`,
+      `roomType:${hotelToDelete.roomType}`,
+      `roomCapacity:${hotelToDelete.roomCapacity}`,
+      `parking:${hotelToDelete.parking}`,
+      `internet:${hotelToDelete.internet}`,
+      `bbqFacilities:${hotelToDelete.bbqFacilities}`,
+      `chef:${hotelToDelete.chef}`,
+      `activities:${hotelToDelete.activities}`,
+      `cctv:${hotelToDelete.cctv}`
+ 
+
     ];
 
     const deletedHotel = new Backup({
@@ -90,32 +84,14 @@ exports.deleteHotel = async (req, res) => {
 exports.updateHotel = async (req, res) => {
   let hotelId = req.params.id;
   const {
-    hotelName,
-    category,
-    email,
-    location,
-    description,
-    price,
-    images,
-    googleMap,
-    whatsappNumber,
-    fb,
-    contactNumber,
-    webUrl
+    hotelName,category,email,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber,webUrl,fullboardPrice,halfboardPrice,liquor,smoke,roomType,roomCapacity,parking,internet,bbqFacilities,chef,activities,cctv
+ 
+
   } = req.body;
   const updateHotel = {
-    hotelName,
-    category,
-    email,
-    location,
-    description,
-    price,
-    images,
-    googleMap,
-    whatsappNumber,
-    fb,
-    contactNumber,
-    webUrl
+    hotelName,category,email,location,description,price,images, googleMap,whatsappNumber,fb,contactNumber,webUrl,fullboardPrice,halfboardPrice,liquor,smoke,roomType,roomCapacity,parking,internet,bbqFacilities,chef,activities,cctv
+ 
+
   };
 
   Hotel.findByIdAndUpdate(hotelId, updateHotel)

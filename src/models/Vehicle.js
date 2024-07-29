@@ -14,6 +14,8 @@ const VehicleSchema = new Schema(
       location:String,
       promoCode: String,
       driverStatus: String,
+      capacity: Number,
+      ac: Boolean,
       images: {
         type: [String], // Array of strings to store image URLs
         validate: {
@@ -24,6 +26,8 @@ const VehicleSchema = new Schema(
         }
     },
     },
+   
+
   );
   
   const VehicleDetails = mongoose.model('Vehicle', VehicleSchema);

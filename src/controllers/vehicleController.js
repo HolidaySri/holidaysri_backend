@@ -16,7 +16,9 @@ exports.addNewVehicle = async (req, res) => {
     images,
     location,
     promoCode,
-    driverStatus
+    driverStatus,
+    capacity,
+    ac
   } = req.body;
 
   try {
@@ -39,7 +41,9 @@ exports.addNewVehicle = async (req, res) => {
       images,
       location,
       promoCode,
-      driverStatus
+      driverStatus,
+      capacity,
+      ac
     });
 
     await newVehicle.save();
@@ -73,7 +77,9 @@ exports.deleteVehicle = async (req, res) => {
       `images: ${vehicleToDelete.images}`,
       `location: ${vehicleToDelete.location}`,
       `promoCode: ${vehicleToDelete.promoCode}`,
-      `driverStatus: ${vehicleToDelete.driverStatus}`
+      `driverStatus: ${vehicleToDelete.driverStatus}`,
+      `capacity: ${vehicleToDelete.capacity}`,
+      `ac: ${vehicleToDelete.ac}`
     ];
 
     const deletedVehicle = new Backup({
@@ -106,7 +112,9 @@ exports.updateVehicle = async (req, res) => {
     images,
     location,
     promoCode,
-    driverStatus
+    driverStatus,
+    capacity,
+    ac
   } = req.body;
 
   const updateVehicle = {
@@ -122,7 +130,9 @@ exports.updateVehicle = async (req, res) => {
     images,
     location,
     promoCode,
-    driverStatus
+    driverStatus,
+    capacity,
+    ac
   };
 
   try {
