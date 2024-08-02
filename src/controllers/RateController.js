@@ -14,6 +14,7 @@ exports.addRate= async (req, res) => {
     discountvehiclePercentage,
     discountagentPercentage,
     discountguidePercentage,
+    discountPromoCodePercentage,
     hotelAdvertiseRate,
     packageAdvertiseRate,
     souveniourAdvertiseRate,
@@ -22,6 +23,7 @@ exports.addRate= async (req, res) => {
     vehicleAdvertiseRate,
     agentAdvertiseRate,
     guideAdvertiseRate,
+    promoCodeRate,
      } = req.body;
   
   
@@ -41,6 +43,7 @@ exports.addRate= async (req, res) => {
     discountvehiclePercentage,
     discountagentPercentage,
     discountguidePercentage,
+    discountPromoCodePercentage,
     hotelAdvertiseRate,
     packageAdvertiseRate,
     souveniourAdvertiseRate,
@@ -49,7 +52,7 @@ exports.addRate= async (req, res) => {
     vehicleAdvertiseRate,
     agentAdvertiseRate,
     guideAdvertiseRate,
-           
+    promoCodeRate,
         })
     
         newRate.save().then(() => {
@@ -88,6 +91,7 @@ exports.deleteRate = async (req, res) => {
       discountvehiclePercentage,
       discountagentPercentage,
       discountguidePercentage,
+      discountPromoCodePercentage,
       hotelAdvertiseRate,
       packageAdvertiseRate,
       souveniourAdvertiseRate,
@@ -96,6 +100,7 @@ exports.deleteRate = async (req, res) => {
       vehicleAdvertiseRate,
       agentAdvertiseRate,
       guideAdvertiseRate,
+      promoCodeRate,
            } = req.body;
   
     const updateRate = {
@@ -108,6 +113,7 @@ exports.deleteRate = async (req, res) => {
       discountvehiclePercentage,
       discountagentPercentage,
       discountguidePercentage,
+      discountPromoCodePercentage,
       hotelAdvertiseRate,
       packageAdvertiseRate,
       souveniourAdvertiseRate,
@@ -115,7 +121,8 @@ exports.deleteRate = async (req, res) => {
       collectibleAdvertiseRate,
       vehicleAdvertiseRate,
       agentAdvertiseRate,
-      guideAdvertiseRate, }
+      guideAdvertiseRate,
+      promoCodeRate, }
   
   
     const update = await rateDetails.findByIdAndUpdate(id, updateRate).then(() => {
