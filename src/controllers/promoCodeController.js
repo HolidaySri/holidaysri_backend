@@ -104,12 +104,17 @@ exports.getOrders = async (req, res) => {
 // Reactivate promo code
 exports.reactivatePromoCode = async (req, res) => {
   try {
-    const { code } = req.body;
+    const { code, email } = req.body;
 
     const promoCodeObj = await PromoCode.findOne({ code });
 
     if (!promoCodeObj) {
       return res.status(404).json({ error: 'Promo code not found' });
+    }
+
+    // Check if email is missing and update if provided
+    if (!promoCodeObj.email && email) {
+      promoCodeObj.email = email;
     }
 
     // Extend expiration date by one year from now
@@ -123,6 +128,7 @@ exports.reactivatePromoCode = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 function generatePromoCode() {
   const length = 8; // You can adjust the length as needed
