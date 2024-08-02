@@ -28,6 +28,11 @@ const UserSchema = new Schema({
     require: true
 },
 
+isSubscribed : {
+  type: String,
+  default: 'Not subscribed'
+},
+
   password: {
     type: String,
     require: true
