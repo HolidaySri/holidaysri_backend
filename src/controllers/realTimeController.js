@@ -18,7 +18,7 @@ exports.addNewRealTime = async (req, res) => {
   } = req.body;
 
   try {
-    const savedRealTime = await realTimeDetails.findOne({ realTimeID: realTimeID });
+    const savedRealTime = await realTimeDetails.findOne({ vehicleID: vehicleID });
 
     if (savedRealTime) {
       return res.status(422).json({ error: "Vehicle already exists with that ID" });
