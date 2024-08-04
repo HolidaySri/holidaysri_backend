@@ -15,6 +15,7 @@ exports.addRate= async (req, res) => {
     discountagentPercentage,
     discountguidePercentage,
     discountPromoCodePercentage,
+    discountLiveRidePercentage,
     hotelAdvertiseRate,
     packageAdvertiseRate,
     souveniourAdvertiseRate,
@@ -24,6 +25,7 @@ exports.addRate= async (req, res) => {
     agentAdvertiseRate,
     guideAdvertiseRate,
     promoCodeRate,
+    liveRideRate,
      } = req.body;
   
   
@@ -44,6 +46,7 @@ exports.addRate= async (req, res) => {
     discountagentPercentage,
     discountguidePercentage,
     discountPromoCodePercentage,
+    discountLiveRidePercentage,
     hotelAdvertiseRate,
     packageAdvertiseRate,
     souveniourAdvertiseRate,
@@ -53,6 +56,7 @@ exports.addRate= async (req, res) => {
     agentAdvertiseRate,
     guideAdvertiseRate,
     promoCodeRate,
+    liveRideRate,
         })
     
         newRate.save().then(() => {
@@ -92,6 +96,7 @@ exports.deleteRate = async (req, res) => {
       discountagentPercentage,
       discountguidePercentage,
       discountPromoCodePercentage,
+      discountLiveRidePercentage,
       hotelAdvertiseRate,
       packageAdvertiseRate,
       souveniourAdvertiseRate,
@@ -101,6 +106,7 @@ exports.deleteRate = async (req, res) => {
       agentAdvertiseRate,
       guideAdvertiseRate,
       promoCodeRate,
+      liveRideRate,
            } = req.body;
   
     const updateRate = {
@@ -114,6 +120,7 @@ exports.deleteRate = async (req, res) => {
       discountagentPercentage,
       discountguidePercentage,
       discountPromoCodePercentage,
+      discountLiveRidePercentage,
       hotelAdvertiseRate,
       packageAdvertiseRate,
       souveniourAdvertiseRate,
@@ -122,7 +129,9 @@ exports.deleteRate = async (req, res) => {
       vehicleAdvertiseRate,
       agentAdvertiseRate,
       guideAdvertiseRate,
-      promoCodeRate, }
+      promoCodeRate,
+      liveRideRate, 
+    }
   
   
     const update = await rateDetails.findByIdAndUpdate(id, updateRate).then(() => {
