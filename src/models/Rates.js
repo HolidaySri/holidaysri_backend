@@ -36,6 +36,9 @@ const rateSchema = new Schema({
     discountLiveRidePercentage: {
         type: Number,
     },
+    discountEventPercentage: {
+        type: Number,
+    },
     hotelAdvertiseRate: {
         type: Number,
     },
@@ -66,6 +69,10 @@ const rateSchema = new Schema({
     liveRideRate: {
         type: Number,
     },
+    eventRate: {
+        type: Number,
+    },
+
 
    
 }, { timestamps: true }); // Adding { timestamps: true } here
