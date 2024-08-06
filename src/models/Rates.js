@@ -12,13 +12,7 @@ const rateSchema = new Schema({
     discountpackagePercentage: {
         type: Number,
     },
-    discountsouveniourPercentage: {
-        type: Number,
-    },
-    discountgiftsPercentage: {
-        type: Number,
-    },
-    discountcollectiblePercentage: {
+    discountProductsPercentage: {
         type: Number,
     },
     discountvehiclePercentage: {
@@ -45,13 +39,7 @@ const rateSchema = new Schema({
     packageAdvertiseRate: {
         type: Number,
     },
-    souveniourAdvertiseRate: {
-        type: Number,
-    },
-    giftsAdvertiseRate: {
-        type: Number,
-    },
-    collectibleAdvertiseRate: {
+    productsAdvertiseRate: {
         type: Number,
     },
     vehicleAdvertiseRate: {
