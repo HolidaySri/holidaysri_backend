@@ -142,3 +142,13 @@ function generatePromoCode() {
 
   return code;
 }
+
+// View all earnings details
+exports.viewEarnings = async (req, res) => {
+  try {
+    const earnings = await Earning.find();
+    res.json(earnings);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching earnings details", message: err.message });
+  }
+};
