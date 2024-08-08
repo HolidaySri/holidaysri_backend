@@ -60,7 +60,9 @@ const rateSchema = new Schema({
     eventRate: {
         type: Number,
     },
-
+    earningRate: {
+        type: Number,
+    },
 
    
 }, { timestamps: true }); // Adding { timestamps: true } here

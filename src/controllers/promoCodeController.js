@@ -28,7 +28,7 @@ exports.generatePromoCode = async (req, res) => {
 // Apply promo code
 exports.applyPromoCode = async (req, res) => {
   try {
-    const { promoCode } = req.body;
+    const { promoCode, amount } = req.body; // Accept amount from the request body
 
     const promoCodeObj = await PromoCode.findOne({ code: promoCode });
 
@@ -46,7 +46,7 @@ exports.applyPromoCode = async (req, res) => {
 
     const earning = new Earning({
       email,
-      amount: 200,
+      amount: amount, 
       promoCode,
     });
 
