@@ -68,6 +68,10 @@ app.use("/booking", bookingRouter);
 const collectionRouter = require('./routes/collectionRoutes.js');
 app.use('/collection', collectionRouter);
 
+//Payment Request Router
+const PaymentRouter = require('./routes/PaymentRoutes.js');
+app.use('/paymentrequest', PaymentRouter);
+
 const initialize = async () => {
     try {
       await mongoose.connect(process.env.MONGO_CONNECT_URL);

@@ -14,7 +14,7 @@ const earningSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
+}, { timestamps: true });
 
 const Earning = mongoose.model('Earning', earningSchema);
 
