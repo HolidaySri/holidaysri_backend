@@ -7,7 +7,7 @@ exports.addNewPayment = async (req, res) => {
 
   Payment.findOne({ email: email })
     .then((savedPayment) => {
-      const newPayment = new Booking({
+      const newPayment = new Payment({
         email,
           amount,
           date,
