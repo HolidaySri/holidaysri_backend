@@ -26,6 +26,10 @@ const paymentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  status: {
+    type: String,
+    default: 'Pending',
+  },
 },  { timestamps: true }); 
 
 const Payment = mongoose.model('Payment Request', paymentSchema);
