@@ -3,7 +3,7 @@ const Backup = require("../models/Backup");
 
 // add new booking for system
 exports.addNewPayment = async (req, res) => {
-  const { email, amount, date, accNumber, bank, branch } = req.body;
+  const { email, amount, date, accNumber, bank, branch, status } = req.body;
 
   Payment.findOne({ email: email })
     .then((savedPayment) => {
@@ -14,6 +14,7 @@ exports.addNewPayment = async (req, res) => {
           accNumber,
           bank,
           branch,
+          status
       });
 
       newPayment.save().then(() => {
@@ -63,7 +64,7 @@ exports.deletePayment = async (req, res) => {
 // update 
 exports.updatePayment = async (req, res) => {
   let paymentId = req.params.id;
-  const { email, amount, date, accNumber, bank, branch } = req.body;
+  const { email, amount, date, accNumber, bank, branch, status } = req.body;
   const updatePayment = {
     email,
           amount,
@@ -71,6 +72,7 @@ exports.updatePayment = async (req, res) => {
           accNumber,
           bank,
           branch,
+          status,
   };
 
   Payment.findByIdAndUpdate(paymentId, updatePayment)
