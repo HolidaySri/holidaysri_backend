@@ -1,6 +1,7 @@
 const PromoCode = require("../models/promo_code");
 const Earning = require("../models/earnings");
 const Order = require("../models/Order");
+const ArchivedEarn = require("../models/ArchivedEarns");
 
 // Generate promo code
 exports.generatePromoCode = async (req, res) => {
@@ -150,5 +151,23 @@ exports.viewEarnings = async (req, res) => {
     res.json(earnings);
   } catch (err) {
     res.status(500).json({ error: "Error fetching earnings details", message: err.message });
+  }
+};
+
+exports.deleteAndSaveEarns = async (req, res) => {
+  const { earns } = req.body;
+
+  try {
+    if (earns && earns.length > 0) {
+      await ArchivedEarn.insertMany(earns);
+    }
+
+    const ids = earns.map((earn) => earn._id);
+    await Earning.deleteMany({ _id: { $in: ids } });
+
+    res.status(200).json({ message: "Records deleted and saved successfully." });
+  } catch (error) {
+    console.error("Error deleting and saving records:", error);
+    res.status(500).json({ message: "An error occurred while processing." });
   }
 };
