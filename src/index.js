@@ -8,6 +8,8 @@ require("dotenv").config();
 
 // Import backup functionality
 const { performBackup } = require('./backup.js');
+// Import deleting expired records
+const { deleteOldRecords } = require('./expiration.js');
 
 const app = express();
 // Enable all CORS requests
@@ -92,6 +94,9 @@ const initialize = async () => {
 
     // Optionally, run the backup immediately on server start
     performBackup();
+
+    // Ensure the deletion script is also started
+    deleteOldRecords();
   };
   
   startServer();

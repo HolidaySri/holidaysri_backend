@@ -25,10 +25,7 @@ const VehicleSchema = new Schema(
             message: props => `${props.value} exceeds the limit of 6 images per location!`
         }
     },
-    },
-   
-
-  );
+    },{ timestamps: true });
   
   const VehicleDetails = mongoose.model('Vehicle', VehicleSchema);
   
