@@ -5,6 +5,10 @@ require("dotenv").config();
 
 // const userRouter = require("./routes/User-routes");
 
+
+// Import backup functionality
+const { performBackup } = require('./backup.js');
+
 const app = express();
 // Enable all CORS requests
 app.use(cors());
@@ -85,6 +89,9 @@ const initialize = async () => {
     await initialize();
     app.listen(process.env.PORT || 8000);
     console.log('Server started');
+
+    // Optionally, run the backup immediately on server start
+    performBackup();
   };
   
   startServer();
