@@ -171,3 +171,13 @@ exports.deleteAndSaveEarns = async (req, res) => {
     res.status(500).json({ message: "An error occurred while processing." });
   }
 };
+
+// View all earnings details
+exports.viewArchived = async (req, res) => {
+  try {
+    const archives = await ArchivedEarn.find();
+    res.json(archives);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching archived earnings details", message: err.message });
+  }
+};
