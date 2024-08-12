@@ -33,6 +33,9 @@ const rateSchema = new Schema({
     discountEventPercentage: {
         type: Number,
     },
+    discountPartnerPercentage: {
+        type: Number,
+    },
     hotelAdvertiseRate: {
         type: Number,
     },
@@ -61,6 +64,9 @@ const rateSchema = new Schema({
         type: Number,
     },
     earningRate: {
+        type: Number,
+    },
+    partnerRate: {
         type: Number,
     },
 
