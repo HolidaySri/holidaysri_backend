@@ -10,6 +10,8 @@ require("dotenv").config();
 const { performBackup } = require('./backup.js');
 // Import deleting expired records
 const { deleteOldRecords } = require('./expiration.js');
+// Import deleting expired live ride records
+const { deleteExpiredRecords } = require('./realtimeExpire.js');
 
 const app = express();
 // Enable all CORS requests
@@ -97,6 +99,9 @@ const initialize = async () => {
 
     // Ensure the deletion script is also started
     deleteOldRecords();
+
+    // Ensure the live ride deletion script is also started
+    deleteExpiredRecords();
   };
   
   startServer();
