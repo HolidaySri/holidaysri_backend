@@ -4,7 +4,7 @@ const Backup = require("../models/Backup");
 
 // Add new Product for system
 exports.addNewProduct = async (req, res) => {
-  const { productName, category, email, location, description, price, images, contactNumber } = req.body;
+  const { productName, category, email, location, description, price, images, contactNumber, subscription } = req.body;
 
   const newProduct = new Product({
         productName,
@@ -67,7 +67,7 @@ exports.deleteProduct = async (req, res) => {
 // Update
 exports.updateProduct = async (req, res) => {
   let productId = req.params.id;
-  const { productName, category, email, location, description, price, images, contactNumber } = req.body;
+  const { productName, category, email, location, description, price, images, contactNumber, subscription } = req.body;
   const updateProduct = {
     productName,
     category,
