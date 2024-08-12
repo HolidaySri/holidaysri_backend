@@ -3,56 +3,101 @@ const Schema = mongoose.Schema;
 
 const hotelSchema = new Schema({
 
-    
-    hotelName: {
-       type: String,
-    },
 
-    category: {
-       type:String
-    },
+  hotelName: {
+    type: String,
+  },
 
-    email: {
-      type:String
-   },
+  category: {
+    type: String
+  },
 
-    location: {
-       type: String,
-    },
+  email: {
+    type: String
+  },
 
-    description: {
-       type: String,
-    },
+  location: {
+    type: String,
+  },
 
-    price: {
-       type: String
-    },
+  description: {
+    type: String,
+  },
 
-    images: {
-      type: String
-    },
+  price: {
+    type: String
+  },
 
-    googleMap: {
-      type: String
-    },
+  images: {
+    type: [String], // Array of strings to store image URLs
+    validate: {
+      validator: function (v) {
+        return v.length <= 6; // Validate that the array length is at most 6
+      },
+      message: props => `${props.value} exceeds the limit of 6 images per location!`
+    }
+  },
 
-    whatsappNumber: {
-      type: String
-    },
+  googleMap: {
+    type: String
+  },
 
-    fb: {
-      type: String
-    },
+  whatsappNumber: {
+    type: String
+  },
 
-    contactNumber: {
-      type: String
-    },
+  fb: {
+    type: String
+  },
 
-    webUrl:{
-      type: String
-    },
+  contactNumber: {
+    type: String
+  },
 
-}, { timestamps: true }); // Adding { timestamps: true } here
+  webUrl: {
+    type: String
+  },
+
+  fullboardPrice: {
+    type: Number,
+  },
+  halfboardPrice: {
+    type: Number,
+  },
+  liquor: {
+    type: Boolean,
+  },
+  smoke: {
+    type: Boolean,
+  },
+  roomType: {
+    type: String,
+  },
+  roomCapacity: {
+    type: Number,
+  },
+  parking: {
+    type: Boolean,
+  },
+  internet: {
+    type: Boolean,
+  },
+  bbqFacilities: {
+    type: Boolean,
+  },
+  chef: {
+    type: Boolean,
+  },
+  activities: {
+    type: String,
+  },
+  cctv: {
+    type: Boolean,
+  }
+
+}, { timestamps: true });
 
 const Hotel = mongoose.model("Hotel", hotelSchema);
 module.exports = Hotel;
+
+  

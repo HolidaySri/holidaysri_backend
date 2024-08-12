@@ -26,13 +26,14 @@ exports.getUserProfile = async (req,res) =>{
 
 //update cutomer profile
 exports.updateUserProfile = async (req,res) => {
-    const {name,email,contactNumber,password} = req.body;
+    const {name,email,contactNumber,isSubscribed,password} = req.body;
 
     try{
         const newData = {
             name,
             email,
             contactNumber,
+            isSubscribed,
             password
         };
 

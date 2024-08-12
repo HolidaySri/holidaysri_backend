@@ -1,6 +1,7 @@
 const PromoCode = require("../models/promo_code");
 const Earning = require("../models/earnings");
 const Order = require("../models/Order");
+const ArchivedEarn = require("../models/ArchivedEarns");
 
 // Generate promo code
 exports.generatePromoCode = async (req, res) => {
@@ -28,7 +29,7 @@ exports.generatePromoCode = async (req, res) => {
 // Apply promo code
 exports.applyPromoCode = async (req, res) => {
   try {
-    const { promoCode } = req.body;
+    const { promoCode, amount } = req.body; // Accept amount from the request body
 
     const promoCodeObj = await PromoCode.findOne({ code: promoCode });
 
@@ -46,7 +47,7 @@ exports.applyPromoCode = async (req, res) => {
 
     const earning = new Earning({
       email,
-      amount: 200,
+      amount: amount, 
       promoCode,
     });
 
@@ -104,12 +105,17 @@ exports.getOrders = async (req, res) => {
 // Reactivate promo code
 exports.reactivatePromoCode = async (req, res) => {
   try {
-    const { code } = req.body;
+    const { code, email } = req.body;
 
     const promoCodeObj = await PromoCode.findOne({ code });
 
     if (!promoCodeObj) {
       return res.status(404).json({ error: 'Promo code not found' });
+    }
+
+    // Check if email is missing and update if provided
+    if (!promoCodeObj.email && email) {
+      promoCodeObj.email = email;
     }
 
     // Extend expiration date by one year from now
@@ -124,6 +130,7 @@ exports.reactivatePromoCode = async (req, res) => {
   }
 };
 
+
 function generatePromoCode() {
   const length = 8; // You can adjust the length as needed
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -136,3 +143,41 @@ function generatePromoCode() {
 
   return code;
 }
+
+// View all earnings details
+exports.viewEarnings = async (req, res) => {
+  try {
+    const earnings = await Earning.find();
+    res.json(earnings);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching earnings details", message: err.message });
+  }
+};
+
+exports.deleteAndSaveEarns = async (req, res) => {
+  const { earns } = req.body;
+
+  try {
+    if (earns && earns.length > 0) {
+      await ArchivedEarn.insertMany(earns);
+    }
+
+    const ids = earns.map((earn) => earn._id);
+    await Earning.deleteMany({ _id: { $in: ids } });
+
+    res.status(200).json({ message: "Records deleted and saved successfully." });
+  } catch (error) {
+    console.error("Error deleting and saving records:", error);
+    res.status(500).json({ message: "An error occurred while processing." });
+  }
+};
+
+// View all earnings details
+exports.viewArchived = async (req, res) => {
+  try {
+    const archives = await ArchivedEarn.find();
+    res.json(archives);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching archived earnings details", message: err.message });
+  }
+};

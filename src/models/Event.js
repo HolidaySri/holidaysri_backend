@@ -9,6 +9,18 @@ const eventSchema = new Schema({
     email: {
         type: String,
     },
+    contactNo: {
+        type: String,
+    },
+    date: {
+        type: String,
+    },
+    ticketPrice: {
+        type: String,
+    },
+    maximumCrowd: {
+        type: String,
+    },
     eventLocation: {
         type: String,
     },

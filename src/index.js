@@ -5,6 +5,12 @@ require("dotenv").config();
 
 // const userRouter = require("./routes/User-routes");
 
+
+// Import backup functionality
+const { performBackup } = require('./backup.js');
+// Import deleting expired records
+const { deleteOldRecords } = require('./expiration.js');
+
 const app = express();
 // Enable all CORS requests
 app.use(cors());
@@ -68,6 +74,10 @@ app.use("/booking", bookingRouter);
 const collectionRouter = require('./routes/collectionRoutes.js');
 app.use('/collection', collectionRouter);
 
+//Payment Request Router
+const PaymentRouter = require('./routes/PaymentRoutes.js');
+app.use('/paymentrequest', PaymentRouter);
+
 const initialize = async () => {
     try {
       await mongoose.connect(process.env.MONGO_CONNECT_URL);
@@ -81,6 +91,12 @@ const initialize = async () => {
     await initialize();
     app.listen(process.env.PORT || 8000);
     console.log('Server started');
+
+    // Optionally, run the backup immediately on server start
+    performBackup();
+
+    // Ensure the deletion script is also started
+    deleteOldRecords();
   };
   
   startServer();

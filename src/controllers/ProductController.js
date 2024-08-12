@@ -1,17 +1,12 @@
 const Product = require("../models/Product");
 const Backup = require("../models/Backup");
 
+
 // Add new Product for system
 exports.addNewProduct = async (req, res) => {
   const { productName, category, email, location, description, price, images, contactNumber } = req.body;
 
-  Product.findOne({ productName: productName })
-    .then((savedProduct) => {
-      if (savedProduct) {
-        return res.status(422).json({ error: "Product Name already exists" });
-      }
-
-      const newProduct = new Product({
+  const newProduct = new Product({
         productName,
         category,
         email,
@@ -20,17 +15,17 @@ exports.addNewProduct = async (req, res) => {
         price,
         images,
         contactNumber
-      });
+  });
 
-      newProduct.save().then(() => {
-        res.json("New Product Added");
-      }).catch((err) => {
-        res.status(500).json({ error: "Error adding product", message: err.message });
-      });
-    }).catch((err) => {
-      res.status(500).json({ error: "Error finding product", message: err.message });
+  newProduct.save()
+    .then(() => {
+      res.json("New Product Added");
+    })
+    .catch((err) => {
+      res.status(500).json({ error: "Error adding product", message: err.message });
     });
 };
+
 
 // Delete existing one
 exports.deleteProduct = async (req, res) => {

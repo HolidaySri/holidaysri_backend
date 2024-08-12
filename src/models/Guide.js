@@ -38,12 +38,18 @@ const GuideSchema = new Schema({
     type: String
   },
 
+  profileImage: {
+    type: String
+  },
+
   experience:{
     type: String
   },
 
   resetPasswordToken: String,
   resetPasswordExpire: Date,
+}, {
+  timestamps: true // Enable timestamps
 });
 
 //pre save runs before save data on Mongodb

@@ -12,13 +12,7 @@ const rateSchema = new Schema({
     discountpackagePercentage: {
         type: Number,
     },
-    discountsouveniourPercentage: {
-        type: Number,
-    },
-    discountgiftsPercentage: {
-        type: Number,
-    },
-    discountcollectiblePercentage: {
+    discountProductsPercentage: {
         type: Number,
     },
     discountvehiclePercentage: {
@@ -30,19 +24,22 @@ const rateSchema = new Schema({
     discountguidePercentage: {
         type: Number,
     },
+    discountPromoCodePercentage: {
+        type: Number,
+    },
+    discountLiveRidePercentage: {
+        type: Number,
+    },
+    discountEventPercentage: {
+        type: Number,
+    },
     hotelAdvertiseRate: {
         type: Number,
     },
     packageAdvertiseRate: {
         type: Number,
     },
-    souveniourAdvertiseRate: {
-        type: Number,
-    },
-    giftsAdvertiseRate: {
-        type: Number,
-    },
-    collectibleAdvertiseRate: {
+    productsAdvertiseRate: {
         type: Number,
     },
     vehicleAdvertiseRate: {
@@ -52,6 +49,18 @@ const rateSchema = new Schema({
         type: Number,
     },
     guideAdvertiseRate: {
+        type: Number,
+    },
+    promoCodeRate: {
+        type: Number,
+    },
+    liveRideRate: {
+        type: Number,
+    },
+    eventRate: {
+        type: Number,
+    },
+    earningRate: {
         type: Number,
     },
 

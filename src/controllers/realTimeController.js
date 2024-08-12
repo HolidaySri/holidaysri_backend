@@ -7,6 +7,7 @@ exports.addNewRealTime = async (req, res) => {
     realTimeID,
     vehicleID,
     vehicleOwnerName,
+    images,
     phoneNumber,
     email,
     Route,
@@ -18,7 +19,7 @@ exports.addNewRealTime = async (req, res) => {
   } = req.body;
 
   try {
-    const savedRealTime = await realTimeDetails.findOne({ realTimeID: realTimeID });
+    const savedRealTime = await realTimeDetails.findOne({ vehicleID: vehicleID });
 
     if (savedRealTime) {
       return res.status(422).json({ error: "Vehicle already exists with that ID" });
@@ -28,6 +29,7 @@ exports.addNewRealTime = async (req, res) => {
       realTimeID,
       vehicleID,
       vehicleOwnerName,
+      images,
       phoneNumber,
       email,
       Route,
@@ -60,6 +62,7 @@ exports.deleteRealTime = async (req, res) => {
       `realTimeID: ${realTimeToDelete.realTimeID}`,
       `vehicleID: ${realTimeToDelete.vehicleID}`,
       `vehicleOwnerName: ${realTimeToDelete.vehicleOwnerName}`,
+      `images: ${Array.isArray(realTimeToDelete.images) ? realTimeToDelete.images.join(', ') : realTimeToDelete.images}`,
       `phoneNumber: ${realTimeToDelete.phoneNumber}`,
       `email: ${realTimeToDelete.email}`,
       `Route: ${realTimeToDelete.Route}`,
@@ -91,6 +94,7 @@ exports.updateRealTime = async (req, res) => {
     realTimeID,
     vehicleID,
     vehicleOwnerName,
+    images,
     phoneNumber,
     email,
     Route,
@@ -105,6 +109,7 @@ exports.updateRealTime = async (req, res) => {
     realTimeID,
     vehicleID,
     vehicleOwnerName,
+    images,
     phoneNumber,
     email,
     Route,
