@@ -48,6 +48,8 @@ const GuideSchema = new Schema({
 
   resetPasswordToken: String,
   resetPasswordExpire: Date,
+}, {
+  timestamps: true // Enable timestamps
 });
 
 //pre save runs before save data on Mongodb
