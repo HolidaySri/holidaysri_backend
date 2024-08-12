@@ -75,8 +75,8 @@ async function performBackup() {
   }
 }
 
-// Schedule the script to run every day at 6:00 AM
-cron.schedule('0 6 * * *', () => {
+// Schedule the script to run every day at 12:30 AM
+cron.schedule('30 0 * * *', () => {
   console.log('Starting daily backup...');
   performBackup();
 });
