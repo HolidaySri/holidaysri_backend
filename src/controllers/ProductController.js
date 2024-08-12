@@ -12,6 +12,7 @@ exports.addNewProduct = async (req, res) => {
         email,
         location,
         description,
+        subscription,
         price,
         images,
         contactNumber
@@ -73,6 +74,7 @@ exports.updateProduct = async (req, res) => {
     email,
     location,
     description,
+    subscription,
     price,
     images,
     contactNumber
