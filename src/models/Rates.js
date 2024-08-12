@@ -69,6 +69,12 @@ const rateSchema = new Schema({
     partnerRate: {
         type: Number,
     },
+    dailyFoodRate: {
+        type: Number,
+    },
+    monthlyFoodRate: {
+        type: Number,
+    },
 
    
 }, { timestamps: true }); // Adding { timestamps: true } here
