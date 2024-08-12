@@ -4,6 +4,10 @@ const jwt = require("jsonwebtoken");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+  subscription: {
+    type:String,
+    default: "regular",
+  },
   role: {
     type: String,
     default: "user",
