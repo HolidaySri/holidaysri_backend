@@ -39,8 +39,8 @@ async function deleteOldRecords() {
   }
 }
 
-// Schedule the script to run every day at 7:00 AM
-cron.schedule('0 7 * * *', () => {
+// Schedule the script to run every day at 1:30 AM
+cron.schedule('30 1 * * *', () => {
   console.log('Starting daily deletion of old records...');
   deleteOldRecords();
 });
