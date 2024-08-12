@@ -15,6 +15,7 @@ exports.addRate= async (req, res) => {
     discountPromoCodePercentage,
     discountLiveRidePercentage,
     discountEventPercentage,
+    discountPartnerPercentage,
     hotelAdvertiseRate,
     packageAdvertiseRate,
     productsAdvertiseRate,
@@ -25,6 +26,7 @@ exports.addRate= async (req, res) => {
     liveRideRate,
     eventRate,
     earningRate,
+    partnerRate,
      } = req.body;
   
   
@@ -45,6 +47,7 @@ exports.addRate= async (req, res) => {
     discountPromoCodePercentage,
     discountLiveRidePercentage,
     discountEventPercentage,
+    discountPartnerPercentage,
     hotelAdvertiseRate,
     packageAdvertiseRate,
     productsAdvertiseRate,
@@ -55,6 +58,7 @@ exports.addRate= async (req, res) => {
     liveRideRate,
     eventRate,
     earningRate,
+    partnerRate,
         })
     
         newRate.save().then(() => {
@@ -94,6 +98,7 @@ exports.deleteRate = async (req, res) => {
       discountPromoCodePercentage,
       discountLiveRidePercentage,
       discountEventPercentage,
+      discountPartnerPercentage,
       hotelAdvertiseRate,
       packageAdvertiseRate,
       productsAdvertiseRate,
@@ -104,6 +109,7 @@ exports.deleteRate = async (req, res) => {
       liveRideRate,
       eventRate,
       earningRate,
+      partnerRate,
            } = req.body;
   
     const updateRate = {
@@ -117,6 +123,7 @@ exports.deleteRate = async (req, res) => {
       discountPromoCodePercentage,
       discountLiveRidePercentage,
       discountEventPercentage,
+      discountPartnerPercentage,
       hotelAdvertiseRate,
       packageAdvertiseRate,
       productsAdvertiseRate,
@@ -127,6 +134,7 @@ exports.deleteRate = async (req, res) => {
       liveRideRate, 
       eventRate,
       earningRate,
+      partnerRate,
     }
   
   
