@@ -40,7 +40,7 @@ const PartnerSchema = new Schema({
     type: String,
     required: true, // Corrected from "require"
   },
-  profileImage: {
+  partnerProfileImage: {
     type: String,
   },
   resetPasswordToken: String,
