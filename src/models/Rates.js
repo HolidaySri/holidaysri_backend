@@ -57,7 +57,10 @@ const rateSchema = new Schema({
     promoCodeRate: {
         type: Number,
     },
-    liveRideRate: {
+    liveRideMonthlyRate: {
+        type: Number,
+    },
+    liveRideDailyRate: {
         type: Number,
     },
     eventRate: {
