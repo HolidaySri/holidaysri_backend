@@ -27,6 +27,8 @@ exports.addRate= async (req, res) => {
     eventRate,
     earningRate,
     partnerRate,
+    dailyFoodRate,
+    monthlyFoodRate,
      } = req.body;
   
   
@@ -59,6 +61,8 @@ exports.addRate= async (req, res) => {
     eventRate,
     earningRate,
     partnerRate,
+    dailyFoodRate,
+    monthlyFoodRate,
         })
     
         newRate.save().then(() => {
@@ -110,6 +114,8 @@ exports.deleteRate = async (req, res) => {
       eventRate,
       earningRate,
       partnerRate,
+      dailyFoodRate,
+    monthlyFoodRate,
            } = req.body;
   
     const updateRate = {
@@ -135,6 +141,8 @@ exports.deleteRate = async (req, res) => {
       eventRate,
       earningRate,
       partnerRate,
+      dailyFoodRate,
+    monthlyFoodRate,
     }
   
   
