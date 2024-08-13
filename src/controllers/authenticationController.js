@@ -102,7 +102,6 @@ exports.registerPartner = async (req, res, next) => {
       password,
       location,
       partnerProfileImage,
-      subscription,
     });
     sendToken3(partner, 201, res);
   } catch (error) {
