@@ -33,6 +33,9 @@ const realTimeSchema = new Schema({
     Description: {
         type: String,
     },
+    Subscription: {
+        type: String,
+    },
     Maximum: {
         type: Number,
     },

@@ -24,6 +24,10 @@ const productSchema = new Schema({
        type: String,
     },
 
+    subscription: {
+      type: String,
+   },
+
     price: {
        type: String
     },

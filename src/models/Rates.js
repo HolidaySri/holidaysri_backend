@@ -33,6 +33,9 @@ const rateSchema = new Schema({
     discountEventPercentage: {
         type: Number,
     },
+    discountPartnerPercentage: {
+        type: Number,
+    },
     hotelAdvertiseRate: {
         type: Number,
     },
@@ -54,13 +57,25 @@ const rateSchema = new Schema({
     promoCodeRate: {
         type: Number,
     },
-    liveRideRate: {
+    liveRideMonthlyRate: {
+        type: Number,
+    },
+    liveRideDailyRate: {
         type: Number,
     },
     eventRate: {
         type: Number,
     },
     earningRate: {
+        type: Number,
+    },
+    partnerRate: {
+        type: Number,
+    },
+    dailyFoodRate: {
+        type: Number,
+    },
+    monthlyFoodRate: {
         type: Number,
     },
 

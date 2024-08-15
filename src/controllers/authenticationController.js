@@ -7,10 +7,11 @@ const Seller = require("../models/Seller");
 
 
 exports.registerUser = async (req, res, next) => {
-  const {role,name, email, contactNumber, password } = req.body;
+  const { subscription,role,name, email, contactNumber, password } = req.body;
  
   try {
     const user = await User.create({
+      subscription,
       role,
       name,
       email,
@@ -45,10 +46,18 @@ exports.registerAdmin = async (req, res, next) => {
 };
 
 exports.registerGuide = async (req, res, next) => {
-  const { role,name, nic, email, contactNumber, password, location,certificateImage,experience,profileImage } = req.body;
+  const { subscription, role, name, nic, email, contactNumber, password, location, certificateImage, experience, profileImage } = req.body;
+
+  if (subscription !== "subscribed") {
+    return res.status(400).json({
+      success: false,
+      error: "Subscription status must be 'subscribed' to register.",
+    });
+  }
 
   try {
     const guide = await Guide.create({
+      subscription,
       role,
       name,
       nic,
@@ -60,20 +69,30 @@ exports.registerGuide = async (req, res, next) => {
       experience,
       profileImage
     });
-    sendToken1(guide, 201, res);
+    sendToken1(guide, 201, res, email);
   } catch (error) {
     res.status(500).json({
-      error,
-      desc: "Error occurred in registers guide" + error,
+      success: false,
+      error: "Error occurred in register guide: " + error.message,
     });
   }
 };
 
+
 exports.registerPartner = async (req, res, next) => {
-  const { role, name, subrole, nic, email, contactNumber, password, location,profileImage} = req.body;
+  const { subscription, role, name, subrole, nic, email, contactNumber, password, location, partnerProfileImage } = req.body;
+
+  // Validate subscription
+  if (subscription !== "subscribed") {
+    return res.status(400).json({
+      success: false,
+      error: "Subscription must be 'subscribed'.",
+    });
+  }
 
   try {
     const partner = await Partner.create({
+      subscription,
       role,
       name,
       subrole,
@@ -82,16 +101,17 @@ exports.registerPartner = async (req, res, next) => {
       contactNumber,
       password,
       location,
-      profileImage
+      partnerProfileImage,
     });
     sendToken3(partner, 201, res);
   } catch (error) {
     res.status(500).json({
-      error,
-      desc: "Error occurred in registers partner" + error,
+      success: false,
+      error: "Error occurred in registerPartner: " + error,
     });
   }
 };
+
 
 
 

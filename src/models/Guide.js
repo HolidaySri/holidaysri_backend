@@ -5,6 +5,11 @@ const Schema = mongoose.Schema;
 
 
 const GuideSchema = new Schema({
+  
+  subscription: {
+    type:String,
+    default: "regular",
+  },
   role: {
       type: String,
       default: "guide",

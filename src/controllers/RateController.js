@@ -15,6 +15,7 @@ exports.addRate= async (req, res) => {
     discountPromoCodePercentage,
     discountLiveRidePercentage,
     discountEventPercentage,
+    discountPartnerPercentage,
     hotelAdvertiseRate,
     packageAdvertiseRate,
     productsAdvertiseRate,
@@ -22,9 +23,13 @@ exports.addRate= async (req, res) => {
     agentAdvertiseRate,
     guideAdvertiseRate,
     promoCodeRate,
-    liveRideRate,
+    liveRideMonthlyRate,
+    liveRideDailyRate,
     eventRate,
     earningRate,
+    partnerRate,
+    dailyFoodRate,
+    monthlyFoodRate,
      } = req.body;
   
   
@@ -45,6 +50,7 @@ exports.addRate= async (req, res) => {
     discountPromoCodePercentage,
     discountLiveRidePercentage,
     discountEventPercentage,
+    discountPartnerPercentage,
     hotelAdvertiseRate,
     packageAdvertiseRate,
     productsAdvertiseRate,
@@ -52,9 +58,13 @@ exports.addRate= async (req, res) => {
     agentAdvertiseRate,
     guideAdvertiseRate,
     promoCodeRate,
-    liveRideRate,
+    liveRideMonthlyRate,
+    liveRideDailyRate,
     eventRate,
     earningRate,
+    partnerRate,
+    dailyFoodRate,
+    monthlyFoodRate,
         })
     
         newRate.save().then(() => {
@@ -94,6 +104,7 @@ exports.deleteRate = async (req, res) => {
       discountPromoCodePercentage,
       discountLiveRidePercentage,
       discountEventPercentage,
+      discountPartnerPercentage,
       hotelAdvertiseRate,
       packageAdvertiseRate,
       productsAdvertiseRate,
@@ -101,9 +112,13 @@ exports.deleteRate = async (req, res) => {
       agentAdvertiseRate,
       guideAdvertiseRate,
       promoCodeRate,
-      liveRideRate,
+      liveRideMonthlyRate,
+    liveRideDailyRate,
       eventRate,
       earningRate,
+      partnerRate,
+      dailyFoodRate,
+    monthlyFoodRate,
            } = req.body;
   
     const updateRate = {
@@ -117,6 +132,7 @@ exports.deleteRate = async (req, res) => {
       discountPromoCodePercentage,
       discountLiveRidePercentage,
       discountEventPercentage,
+      discountPartnerPercentage,
       hotelAdvertiseRate,
       packageAdvertiseRate,
       productsAdvertiseRate,
@@ -124,9 +140,13 @@ exports.deleteRate = async (req, res) => {
       agentAdvertiseRate,
       guideAdvertiseRate,
       promoCodeRate,
-      liveRideRate, 
+      liveRideMonthlyRate,
+    liveRideDailyRate, 
       eventRate,
       earningRate,
+      partnerRate,
+      dailyFoodRate,
+    monthlyFoodRate,
     }
   
   
