@@ -11,6 +11,8 @@ const {
     updateSellerProfile,
     deleteSellerProfile,
     allSellerProfiles,
+    resetPassword,
+    forgotPassword,
 
     // getInvoice
 } = require("../controllers/sellerController");
@@ -21,5 +23,7 @@ router.route("/sellerprofile").get(protectedSeller,getSellerProfile);
 router.route("/updateSellerProfile").put(protectedSeller,updateSellerProfile);
 router.route("/deleteSellerProfile").delete(protectedSeller,deleteSellerProfile);
 router.route("/allSellerProfiles").get(allSellerProfiles);
+router.route("/reset-Password/:resetToken").put(protectedSeller, resetPassword);
+router.route("/forgotPassword").post(protectedSeller, forgotPassword);
 
 module.exports = router; 
