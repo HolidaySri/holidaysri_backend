@@ -6,27 +6,28 @@ const Schema = mongoose.Schema;
 const adminSchema = new Schema({
   role: {
     type: String,
-    default:"admin",
-
+    default: "admin",
   },
 
-  email : {
-    type : String,
+  email: {
+    type: String,
     unique: true,
-    require: true
+    require: true,
   },
 
-  contactNumber : {
+  contactNumber: {
     type: Number,
-    require: true
+    require: true,
   },
 
   password: {
     type: String,
-    require: true
-   },
+    require: true,
+  },
 
-})
+  resetPasswordToken: String,
+  resetPasswordExpire: Date,
+});
 
 //by using "pre save" we run this code segment before mongoose save data on db
 adminSchema.pre("save", async function (next) {

@@ -1,6 +1,7 @@
 const Agent = require("../models/Agent");
-
 const mongoose = require("mongoose");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 
 //fetch suser profile
 exports.getAgentProfile = async (req,res) =>{
@@ -100,4 +101,79 @@ exports.allAgentProfiles =  (req,res) =>{
       
     })
     
+};
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const agent = await Agent.findOne({ email });
+
+    if (!agent) {
+      return res.status(404).json({ msg: "agent not found" });
+    }
+
+    const resetToken = crypto.randomBytes(20).toString("hex");
+
+    agent.resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+    agent.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 Minutes
+
+    await agent.save();
+
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
+
+    const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+
+    const transporter = nodemailer.createTransport({
+      service: process.env.EMAIL_SERVICE,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      to: agent.email,
+      subject: "Password reset token",
+      text: message,
+    });
+
+    return res.status(200).json({ success: true, data: "Email sent" });
+  } catch (err) {
+    agent.resetPasswordToken = undefined;
+    agent.resetPasswordExpire = undefined;
+    await admin.save();
+    return res.status(500).json({ msg: "Email could not be sent" });
+  }
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.resetToken)
+    .digest("hex");
+
+  try {
+    const agent = await Agent.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!agent) {
+      return res.status(400).json({ msg: "Invalid Token" });
+    }
+
+    agent.password = req.body.password;
+    agent.resetPasswordToken = undefined;
+    agent.resetPasswordExpire = undefined;
+
+    await agent.save();
+
+    return res.status(200).json({ success: true, data: "Password updated" });
+  } catch (err) {
+        return res.status(500).send("Server error");
+    }
+
 };
