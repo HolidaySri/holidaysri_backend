@@ -21,7 +21,7 @@ const {
 router.route("/updateProfile").put(protectedAdmin,updateAdminProfile);
 router.route("/deleteProfile").delete(protectedAdmin,deleteAdminProfile);
 router.route("/home").get(home);
-router.route("/reset-Password/:resetToken").put(protectedAdmin, resetPassword);
-router.route("/forgotPassword").post(protectedAdmin, forgotPassword);
+router.post("/forgotPassword", forgotPassword);
+router.put("/reset-Password/:resetToken", resetPassword);
 
 module.exports = router; 
