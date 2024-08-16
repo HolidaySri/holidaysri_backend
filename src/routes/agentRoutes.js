@@ -11,6 +11,8 @@ const {
     updateAgentProfile,
     deleteAgentProfile,
     allAgentProfiles,
+    resetPassword,
+    forgotPassword,
 
     // getInvoice
 } = require("../controllers/agentController");
@@ -21,5 +23,8 @@ router.route("/agentprofile").get(protectedAgent,getAgentProfile);
 router.route("/updateAgentProfile").put(protectedAgent,updateAgentProfile);
 router.route("/deleteAgentProfile").delete(protectedAgent,deleteAgentProfile);
 router.route("/allAgentProfiles").get(allAgentProfiles);
+router.route("/reset-Password/:resetToken").put(protectedAgent, resetPassword);
+router.route("/forgotPassword").post(protectedAgent, forgotPassword);
+
 
 module.exports = router; 

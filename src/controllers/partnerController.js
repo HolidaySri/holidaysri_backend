@@ -1,6 +1,7 @@
 const Partner = require("../models/Partner");
-
 const mongoose = require("mongoose");
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 
 //fetch suser profile
 exports.getPartnerProfile = async (req,res) =>{
@@ -97,4 +98,79 @@ exports.allPartnerProfiles =  (req,res) =>{
       
     })
     
+};
+
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const patner = await Partner.findOne({ email });
+
+    if (!patner) {
+      return res.status(404).json({ msg: "patner not found" });
+    }
+
+    const resetToken = crypto.randomBytes(20).toString("hex");
+
+    patner.resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+    patner.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 Minutes
+
+    await patner.save();
+
+    const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
+
+    const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+
+    const transporter = nodemailer.createTransport({
+      service: process.env.EMAIL_SERVICE,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      to: patner.email,
+      subject: "Password reset token",
+      text: message,
+    });
+
+    return res.status(200).json({ success: true, data: "Email sent" });
+  } catch (err) {
+    patner.resetPasswordToken = undefined;
+    patner.resetPasswordExpire = undefined;
+    await patner.save();
+    return res.status(500).json({ msg: "Email could not be sent" });
+  }
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.resetToken)
+    .digest("hex");
+
+  try {
+    const patner = await Partner.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!patner) {
+      return res.status(400).json({ msg: "Invalid Token" });
+    }
+
+    patner.password = req.body.password;
+    patner.resetPasswordToken = undefined;
+    patner.resetPasswordExpire = undefined;
+
+    await patner.save();
+
+    return res.status(200).json({ success: true, data: "Password updated" });
+  } catch (err) {
+    return res.status(500).send("Server error");
+  }
 };
