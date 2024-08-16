@@ -23,7 +23,7 @@ router.route("/partnerprofile").get(protectedPartner,getPartnerProfile);
 router.route("/updatepartnerProfile").put(protectedPartner,updatePartnerProfile);
 router.route("/deletepartnerProfile").delete(protectedPartner,deletePartnerProfile);
 router.route("/allPartnerProfiles").get(allPartnerProfiles);
-router.route("/reset-Password/:resetToken").put(protectedPartner, resetPassword);
-router.route("/forgotPassword").post(protectedPartner, forgotPassword);
+router.post("/forgotPassword", forgotPassword);
+router.put("/reset-Password/:resetToken", resetPassword);
 
 module.exports = router; 
