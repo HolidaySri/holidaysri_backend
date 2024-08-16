@@ -23,8 +23,8 @@ router.route("/agentprofile").get(protectedAgent,getAgentProfile);
 router.route("/updateAgentProfile").put(protectedAgent,updateAgentProfile);
 router.route("/deleteAgentProfile").delete(protectedAgent,deleteAgentProfile);
 router.route("/allAgentProfiles").get(allAgentProfiles);
-router.route("/reset-Password/:resetToken").put(protectedAgent, resetPassword);
-router.route("/forgotPassword").post(protectedAgent, forgotPassword);
+router.post("/forgotPassword", forgotPassword);
+router.put("/reset-Password/:resetToken", resetPassword);
 
 
 module.exports = router; 
