@@ -27,7 +27,8 @@ exports.getPartnerProfile = async (req,res) =>{
 
 //update cutomer profile
 exports.updatePartnerProfile = async (req,res) => {
-    const {Name,Email,contactNumber,password, location} = req.body;
+    const { Name, Email, contactNumber, password, location, country } =
+      req.body;
 
     try{
         const newData = {
@@ -35,7 +36,8 @@ exports.updatePartnerProfile = async (req,res) => {
             Email,
             contactNumber,
             password,
-            location
+            location,
+            country
         };
 
         const updatedPartner = await Partner.findByIdAndUpdate(

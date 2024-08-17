@@ -3,51 +3,55 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Schema = mongoose.Schema;
 
-const PartnerSchema = new Schema({
-  
-  subscription: {
-    type:String,
-    default: "regular",
+const PartnerSchema = new Schema(
+  {
+    subscription: {
+      type: String,
+      default: "regular",
+    },
+    role: {
+      type: String,
+      default: "partner",
+    },
+    name: {
+      type: String,
+    },
+    subrole: {
+      type: String,
+      required: true, // Corrected from "require"
+    },
+    nic: {
+      type: String,
+      unique: true,
+    },
+    email: {
+      type: String,
+      unique: true,
+    },
+    contactNumber: {
+      type: Number,
+      required: true, // Corrected from "require"
+    },
+    password: {
+      type: String,
+      required: true, // Corrected from "require"
+    },
+    location: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+    partnerProfileImage: {
+      type: String,
+    },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
-  role: {
-    type: String,
-    default: "partner",
-  },
-  name: {
-    type: String,
-  },
-  subrole: {
-    type: String,
-    required: true, // Corrected from "require"
-  },
-  nic: {
-    type: String,
-    unique: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-  },
-  contactNumber: {
-    type: Number,
-    required: true, // Corrected from "require"
-  },
-  password: {
-    type: String,
-    required: true, // Corrected from "require"
-  },
-  location: {
-    type: String,
-    required: true, // Corrected from "require"
-  },
-  partnerProfileImage: {
-    type: String,
-  },
-  resetPasswordToken: String,
-  resetPasswordExpire: Date,
-}, {
-  timestamps: true // Enable timestamps
-});
+  {
+    timestamps: true, // Enable timestamps
+  }
+);
 
 // Pre-save hook to hash password before saving
 PartnerSchema.pre("save", async function (next) {
