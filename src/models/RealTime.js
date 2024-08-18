@@ -48,6 +48,9 @@ const realTimeSchema = new Schema({
     Status: {
         type: String,
     },
+    price: {
+        type: String,
+    },
 
    
 }, { timestamps: true }); // Adding { timestamps: true } here
