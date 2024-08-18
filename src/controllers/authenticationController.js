@@ -80,7 +80,7 @@ exports.registerGuide = async (req, res, next) => {
 
 
 exports.registerPartner = async (req, res, next) => {
-  const { subscription, role, name, subrole, nic, email, contactNumber, password, location, partnerProfileImage } = req.body;
+  const { subscription, role, name, subrole, nic, email, contactNumber, password, location,country, partnerProfileImage } = req.body;
 
   // Validate subscription
   if (subscription !== "subscribed") {
@@ -101,6 +101,7 @@ exports.registerPartner = async (req, res, next) => {
       contactNumber,
       password,
       location,
+      country,
       partnerProfileImage,
     });
     sendToken3(partner, 201, res);
@@ -117,7 +118,7 @@ exports.registerPartner = async (req, res, next) => {
 
 
 exports.registerAgent = async (req, res, next) => {
-  const {role,subrole,name,nic,passport,email,contactNumber,password,promoCode, image } = req.body;
+  const {role,subrole,name,nic,passport,email,contactNumber,password,promoCode, image,country } = req.body;
 
   try {
     const agent = await Agent.create({
@@ -130,7 +131,8 @@ exports.registerAgent = async (req, res, next) => {
             contactNumber,
             password,
             promoCode,
-            image
+            image,
+            country
     });
     sendToken4(agent, 201, res);
   } catch (error) {
