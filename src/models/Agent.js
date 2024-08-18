@@ -53,6 +53,9 @@ const AgentSchema = new Schema({
       image : {
         type: String,
       
+  },
+  country: {
+        type: String,
       },
     
       resetPasswordToken : String,

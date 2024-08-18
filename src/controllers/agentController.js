@@ -27,7 +27,7 @@ exports.getAgentProfile = async (req,res) =>{
 
 //update cutomer profile
 exports.updateAgentProfile = async (req,res) => {
-    const {subrole,name,nic,passport,email,contactNumber,password,promoCode} = req.body;
+    const {subrole,name,nic,passport,email,contactNumber,password,promoCode,country} = req.body;
 
     try{
         const newData = {
@@ -38,7 +38,8 @@ exports.updateAgentProfile = async (req,res) => {
             email,
             contactNumber,
             password,
-            promoCode
+            promoCode,
+            country
         };
 
         const updatedAgent = await Agent.findByIdAndUpdate(
