@@ -16,7 +16,8 @@ exports.addNewRealTime = async (req, res) => {
     Maximum,
     Availability,
     CurrentLocation,
-    Status
+    Status,
+    price
   } = req.body;
 
   try {
@@ -39,7 +40,8 @@ exports.addNewRealTime = async (req, res) => {
       Maximum,
       Availability,
       CurrentLocation,
-      Status
+      Status,
+      price
     });
 
     await newRealTime.save();
@@ -72,7 +74,8 @@ exports.deleteRealTime = async (req, res) => {
       `Maximum: ${realTimeToDelete.Maximum}`,
       `Availability: ${realTimeToDelete.Availability}`,
       `CurrentLocation: ${realTimeToDelete.CurrentLocation}`,
-      `Status: ${realTimeToDelete.Status}`
+      `Status: ${realTimeToDelete.Status}`,
+      `price: ${realTimeToDelete.price}`
     ];
 
     const deletedRealTime = new Backup({
@@ -105,7 +108,8 @@ exports.updateRealTime = async (req, res) => {
     Maximum,
     Availability,
     CurrentLocation,
-    Status
+    Status,
+    price
   } = req.body;
 
   const updateRealTime = {
@@ -121,7 +125,8 @@ exports.updateRealTime = async (req, res) => {
     Maximum,
     Availability,
     CurrentLocation,
-    Status
+    Status,
+    price
   };
 
   try {
