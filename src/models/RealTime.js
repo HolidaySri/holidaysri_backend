@@ -51,6 +51,12 @@ const realTimeSchema = new Schema({
     price: {
         type: String,
     },
+    rideDate: {
+        type: String,
+    },
+    rideTime: {
+        type: String,
+    }
 
    
 }, { timestamps: true }); // Adding { timestamps: true } here
