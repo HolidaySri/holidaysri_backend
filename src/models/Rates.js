@@ -24,7 +24,10 @@ const rateSchema = new Schema({
     discountguidePercentage: {
         type: Number,
     },
-    discountPromoCodePercentage: {
+    discountPromoCodeLocalPercentage: {
+        type: Number,
+    },
+    discountPromoCodeForeignPercentage: {
         type: Number,
     },
     discountLiveRidePercentage: {
@@ -34,6 +37,12 @@ const rateSchema = new Schema({
         type: Number,
     },
     discountPartnerPercentage: {
+        type: Number,
+    },
+    discountDailyPercentage: {
+        type: Number,
+    },
+    discountMonthlyPercentage: {
         type: Number,
     },
     hotelAdvertiseRate: {
@@ -72,13 +81,40 @@ const rateSchema = new Schema({
     earningRate: {
         type: Number,
     },
-    partnerRate: {
+    partnerLocalRate: {
+        type: Number,
+    },
+    partnerForeignRate: {
         type: Number,
     },
     dailyFoodRate: {
         type: Number,
     },
     monthlyFoodRate: {
+        type: Number,
+    },
+    dailyEarnRate: {
+        type: Number,
+    },
+    monthlyEarnRate: {
+        type: Number,
+    },
+    packageDeductRate: {
+        type: Number,
+    },
+    packageEarnRate: {
+        type: Number,
+    },
+    partnerLocalEarnRate: {
+        type: Number,
+    },
+    partnerForeignEarnRate: {
+        type: Number,
+    },
+    promoCodeLocalEarnRate: {
+        type: Number,
+    },
+    promoCodeForeignEarnRate: {
         type: Number,
     },
 
