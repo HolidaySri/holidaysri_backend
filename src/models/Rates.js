@@ -54,7 +54,10 @@ const rateSchema = new Schema({
     guideAdvertiseRate: {
         type: Number,
     },
-    promoCodeRate: {
+    promoCodeLocalRate: {
+        type: Number,
+    },
+    promoCodeForeignRate: {
         type: Number,
     },
     liveRideMonthlyRate: {
