@@ -1,5 +1,5 @@
 const express = require('express');
-const { generatePromoCode, applyPromoCode, saveEarnings, createOrder, getOrders, reactivatePromoCode, viewEarnings, deleteAndSaveEarns, viewArchived } = require('../controllers/promoCodeController');
+const { generatePromoCode, applyPromoCode, saveEarnings, createOrder, getOrders, reactivatePromoCode, viewEarnings, deleteAndSaveEarns, viewArchived, checkExistingPromoCode } = require('../controllers/promoCodeController');
 
 const router = express.Router();
 
@@ -29,5 +29,8 @@ router.post("/deleteearns", deleteAndSaveEarns);
 
 // Archived Earnings
 router.get("/archiveearns", viewArchived);
+
+// Get Promo Code
+router.get("/promo-exist", checkExistingPromoCode);
 
 module.exports = router;
