@@ -36,7 +36,10 @@ const rateSchema = new Schema({
     discountEventPercentage: {
         type: Number,
     },
-    discountPartnerPercentage: {
+    discountLocalPartnerPercentage: {
+        type: Number,
+    },
+    discountForeignPartnerPercentage: {
         type: Number,
     },
     discountDailyPercentage: {
