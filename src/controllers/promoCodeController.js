@@ -25,7 +25,6 @@ const ArchivedEarn = require("../models/ArchivedEarns");
 //     res.status(500).send(error.message);
 //   }
 // };
-
 exports.generatePromoCode = async (req, res) => {
   try {
     const { discountPercentage, email } = req.body;
