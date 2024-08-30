@@ -25,7 +25,6 @@ const ArchivedEarn = require("../models/ArchivedEarns");
 //     res.status(500).send(error.message);
 //   }
 // };
-
 exports.generatePromoCode = async (req, res) => {
   try {
     const { discountPercentage, email } = req.body;
@@ -235,7 +234,11 @@ exports.checkExistingPromoCode = async (req, res) => {
       return res.status(404).json({ message: 'No promo code found for this user.' });
     }
 
-    res.status(200).json({ promoCode: promoCodeObj.code });
+    // Send both the promo code and isActive status in the response
+    res.status(200).json({
+      promoCode: promoCodeObj.code,
+      isActive: promoCodeObj.isActive
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
