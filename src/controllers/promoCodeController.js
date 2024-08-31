@@ -27,7 +27,7 @@ const ArchivedEarn = require("../models/ArchivedEarns");
 // };
 exports.generatePromoCode = async (req, res) => {
   try {
-    const { discountPercentage, email } = req.body;
+    const { email } = req.body;
 
     // Check if a promo code already exists for the provided email
     let promoCode = await PromoCode.findOne({ email });
@@ -46,14 +46,12 @@ exports.generatePromoCode = async (req, res) => {
     // If a promo code exists but has expired, update it with a new code and expiration date
     if (promoCode) {
       promoCode.code = generatedCode;
-      promoCode.discountPercentage = discountPercentage;
       promoCode.expirationDate = expirationDate;
     } else {
       // If no promo code exists, create a new one
       promoCode = new PromoCode({
         email,
         code: generatedCode,
-        discountPercentage,
         expirationDate,
       });
     }
@@ -83,8 +81,11 @@ exports.applyPromoCode = async (req, res) => {
       return res.status(403).json({ error: 'Promo code is expired or inactive' });
     }
 
+    
+// Get the email bound to the promo code
     const email = promoCodeObj.email;
     const discountPercentage = promoCodeObj.discountPercentage;
+    const code = promoCodeObj.code;
 
     const earning = new Earning({
       email,
@@ -93,7 +94,7 @@ exports.applyPromoCode = async (req, res) => {
 
     // await earning.save();
 
-    res.status(200).json({ email, discountPercentage });
+    res.status(200).json({ email,code });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -102,11 +103,12 @@ exports.applyPromoCode = async (req, res) => {
 // Save earnings
 exports.saveEarnings = async (req, res) => {
   try {
-    const { email, amount, promoCode } = req.body;
+    const { email, amount,orderId, promoCode, } = req.body;
 
     const earning = new Earning({
       email,
       amount,
+      orderId,
       promoCode,
     });
 
