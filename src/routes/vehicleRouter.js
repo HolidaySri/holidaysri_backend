@@ -1,22 +1,24 @@
 const express = require('express');
-
-const {addNewVehicle,viewVehicle,viewOneVehicle,deleteVehicle,updateVehicle} = require ('../controllers/vehicleController')
+const { addNewVehicle, viewVehicle, viewOneVehicle, deleteVehicle, updateVehicle, viewVehicleByEmail } = require('../controllers/vehicleController');
 
 const router = express.Router();
 
-//add new dog 
+// Add new vehicle
 router.post("/add", addNewVehicle);
 
-//delete existing one
+// Delete existing one
 router.delete("/delete/:id", deleteVehicle);
 
-//update existing evaluation
+// Update existing vehicle
 router.put("/update/:id", updateVehicle);
 
-//view all dogs
+// View vehicle by email (this route should come before "/:id")
+router.get("/vehicle", viewVehicleByEmail);
+
+// View all vehicles
 router.get("/", viewVehicle);
 
-//view one dog
+// View one vehicle by ID
 router.get("/:id", viewOneVehicle);
 
 module.exports = router;
