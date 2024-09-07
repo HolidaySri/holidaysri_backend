@@ -167,3 +167,20 @@ exports.viewOneVehicle = async (req, res) => {
     res.status(500).send({ status: "Error with get", error: err.message });
   }
 };
+
+// View vehicles by email
+exports.viewVehicleByEmail = async (req, res) => {
+  const { email } = req.query; // Capture email from query parameter
+
+  try {
+    const vehicles = await vehicleDetails.find({ email: email });
+
+    if (vehicles.length === 0) {
+      return res.status(404).json({ status: "No vehicles found for this email" });
+    }
+
+    res.status(200).json({ status: "Vehicles fetched successfully", vehicles });
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching vehicles", message: err.message });
+  }
+};
